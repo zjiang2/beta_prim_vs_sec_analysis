@@ -77,7 +77,7 @@ pp2 <- pp2 + xlim(c(-0.06,0.06)) + ylim(c(-0.06,0.06))
 grid.arrange(pp1,pp2,nrow=1)
 ```
 
-This can be fixed by normalizing the effect sizes and readjusting the limits:
+This can be fixed by normalizing the effect sizes (dividing the gwas and eqtl effect sizes by their respective standard deviations) and readjusting the limits:
 
 ```{r, echo=FALSE,warning=FALSE,message=FALSE}
 
@@ -138,4 +138,14 @@ pp2 <- pp2 + xlim(c(-2,2)) + ylim(c(-2,2))
 grid.arrange(pp1,pp2,nrow=1)
 ```
 
+An interesting observation is that the variance of $\beta_{sec}$ is higher than that of $\beta_{prim}$. This is obvious if you zoom out of both of the above graphs.
+
+```{r, echo=FALSE,warning=FALSE,message=FALSE}
+
+pp1 <- pp1 + xlim(c(-4,4)) + ylim(c(-4,4))
+
+pp2 <- pp2 + xlim(c(-4,4)) + ylim(c(-4,4))
+
+grid.arrange(pp1,pp2,nrow=1)
+```
 
