@@ -1,0 +1,141 @@
+---
+title: "analysis"
+author: "joshjiang"
+date: "8/6/2019"
+output: html_document
+---
+
+```{r setup,include=FALSE}
+library(ggplot2)
+library(tidyverse)
+library(gridExtra)
+```
+
+Problem:
+
+The beta prime vs secondary plots are not in the same scale.
+
+e.g.
+
+```{r, echo=FALSE,warning=FALSE,message=FALSE}
+
+dapg_file_pattern <- "/Users/joshjiang/hakylab/gtex-gwas-analysis/data/dapg_selected_variants/expression/gwas_and_eqtl/DAPG_with_mashr__{tissue}.rds"
+phenotype_lst <- readLines("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/phenotype_list.txt")
+metadata <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/gwas_metadata.txt") %>% rename(phenotype=Tag)
+tissue <- "Whole_Blood"
+
+phenotype <- "Astle_et_al_2016_Eosinophil_counts"
+df <- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
+short_phenotype <- as.character(metadata[metadata$phenotype==phenotype, "new_Phenotype"])
+df_2_eqtl <- df %>%
+  group_by(tissue, phenotype, gene_id) %>%
+  filter(n() == 2) %>%
+  mutate(rank = order(order(abs(eqtl_effect_size), decreasing=TRUE))) %>%
+  mutate(rank = paste0("rank", rank)) %>%
+  mutate(beta_gene=gwas_effect_size/eqtl_effect_size) %>%
+  select(tissue, phenotype, gene_id, rank, beta_gene) %>%
+  spread(key=rank, value=beta_gene)
+df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank1 > quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) & df_2_eqtl$rank1 < quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
+df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank2 > quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) & df_2_eqtl$rank2 < quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
+
+plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
+
+pp1 <- ggplot(df_2_eqtl, aes(rank1, rank2))
+pp1 <- pp1 + geom_point(alpha=.2, size=4)
+pp1 <- pp1 + theme_bw(base_size=20)
+pp1 <- pp1 + geom_abline(slope=1,intercept=0)
+pp1 <- pp1 + stat_density2d(color = "black", contour = TRUE)
+pp1 <- pp1 + ggtitle(plot_title)
+pp1 <- pp1 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp1 <- pp1 + xlim(c(-0.06,0.06)) + ylim(c(-0.06,0.06))
+
+phenotype <- "UKB_20002_1094_self_reported_deep_venous_thrombosis_dvt"
+df <- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
+short_phenotype <- as.character(metadata[metadata$phenotype==phenotype, "new_Phenotype"])
+df_2_eqtl <- df %>%
+  group_by(tissue, phenotype, gene_id) %>%
+  filter(n() == 2) %>%
+  mutate(rank = order(order(abs(eqtl_effect_size), decreasing=TRUE))) %>%
+  mutate(rank = paste0("rank", rank)) %>%
+  mutate(beta_gene=gwas_effect_size/eqtl_effect_size) %>%
+  select(tissue, phenotype, gene_id, rank, beta_gene) %>%
+  spread(key=rank, value=beta_gene)
+df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank1 > quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) & df_2_eqtl$rank1 < quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
+df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank2 > quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) & df_2_eqtl$rank2 < quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
+
+plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
+
+pp2 <- ggplot(df_2_eqtl, aes(rank1, rank2))
+pp2 <- pp2 + geom_point(alpha=.2, size=4)
+pp2 <- pp2 + theme_bw(base_size=20)
+pp2 <- pp2 + geom_abline(slope=1,intercept=0)
+pp2 <- pp2 + stat_density2d(color = "black", contour = TRUE)
+pp2 <- pp2 + ggtitle(plot_title)
+pp2 <- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp2 <- pp2 + xlim(c(-0.06,0.06)) + ylim(c(-0.06,0.06))
+
+grid.arrange(pp1,pp2,nrow=1)
+```
+
+This can be fixed by normalizing the effect sizes and readjusting the limits:
+
+```{r, echo=FALSE,warning=FALSE,message=FALSE}
+
+phenotype <- "Astle_et_al_2016_Eosinophil_counts"
+df <- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
+df['eqtl_effect_size'] <- df['eqtl_effect_size']/sd(df$eqtl_effect_size, na.rm=TRUE)
+df['gwas_effect_size'] <- df['gwas_effect_size']/sd(df$gwas_effect_size, na.rm=TRUE)
+short_phenotype <- as.character(metadata[metadata$phenotype==phenotype, "new_Phenotype"])
+df_2_eqtl <- df %>%
+  group_by(tissue, phenotype, gene_id) %>%
+  filter(n() == 2) %>%
+  mutate(rank = order(order(abs(eqtl_effect_size), decreasing=TRUE))) %>%
+  mutate(rank = paste0("rank", rank)) %>%
+  mutate(beta_gene=gwas_effect_size/eqtl_effect_size) %>%
+  select(tissue, phenotype, gene_id, rank, beta_gene) %>%
+  spread(key=rank, value=beta_gene)
+df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank1 > quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) & df_2_eqtl$rank1 < quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
+df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank2 > quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) & df_2_eqtl$rank2 < quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
+
+plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
+
+pp1 <- ggplot(df_2_eqtl, aes(rank1, rank2))
+pp1 <- pp1 + geom_point(alpha=.2, size=4)
+pp1 <- pp1 + theme_bw(base_size=20)
+pp1 <- pp1 + geom_abline(slope=1,intercept=0)
+pp1 <- pp1 + stat_density2d(color = "black", contour = TRUE)
+pp1 <- pp1 + ggtitle(plot_title)
+pp1 <- pp1 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp1 <- pp1 + xlim(c(-2,2)) + ylim(c(-2,2))
+
+phenotype <- "UKB_20002_1094_self_reported_deep_venous_thrombosis_dvt"
+df <- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
+df['eqtl_effect_size'] <- df['eqtl_effect_size']/sd(df$eqtl_effect_size, na.rm=TRUE)
+df['gwas_effect_size'] <- df['gwas_effect_size']/sd(df$gwas_effect_size, na.rm=TRUE)
+short_phenotype <- as.character(metadata[metadata$phenotype==phenotype, "new_Phenotype"])
+df_2_eqtl <- df %>%
+  group_by(tissue, phenotype, gene_id) %>%
+  filter(n() == 2) %>%
+  mutate(rank = order(order(abs(eqtl_effect_size), decreasing=TRUE))) %>%
+  mutate(rank = paste0("rank", rank)) %>%
+  mutate(beta_gene=gwas_effect_size/eqtl_effect_size) %>%
+  select(tissue, phenotype, gene_id, rank, beta_gene) %>%
+  spread(key=rank, value=beta_gene)
+df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank1 > quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) & df_2_eqtl$rank1 < quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
+df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank2 > quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) & df_2_eqtl$rank2 < quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
+
+plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
+
+pp2 <- ggplot(df_2_eqtl, aes(rank1, rank2))
+pp2 <- pp2 + geom_point(alpha=.2, size=4)
+pp2 <- pp2 + theme_bw(base_size=20)
+pp2 <- pp2 + geom_abline(slope=1,intercept=0)
+pp2 <- pp2 + stat_density2d(color = "black", contour = TRUE)
+pp2 <- pp2 + ggtitle(plot_title)
+pp2 <- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp2 <- pp2 + xlim(c(-2,2)) + ylim(c(-2,2))
+
+grid.arrange(pp1,pp2,nrow=1)
+```
+
+
