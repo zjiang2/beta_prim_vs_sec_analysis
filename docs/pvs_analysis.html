@@ -542,16 +542,18 @@ environment
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree1f88d2b45fc6f5b5de1cef80d748de1b355ee6b3targetblank1f88d2ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/tree/1f88d2b45fc6f5b5de1cef80d748de1b355ee6b3" target="_blank">1f88d2b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree7bd2afd681149880560d1907e4d31fd164a1457etargetblank7bd2afda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/tree/7bd2afd681149880560d1907e4d31fd164a1457e" target="_blank">7bd2afd</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree1f88d2b45fc6f5b5de1cef80d748de1b355ee6b3targetblank1f88d2ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree7bd2afd681149880560d1907e4d31fd164a1457etargetblank7bd2afda" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
-working directory clean
+Ignored files:
+    Ignored:    .Rproj.user/
+
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
@@ -589,6 +591,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/7bd2afd681149880560d1907e4d31fd164a1457e/analysis/pvs_analysis.Rmd" target="_blank">7bd2afd</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-06
+</td>
+<td>
+added qqplot, changed scatterplot
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zjiang2/beta_prim_vs_sec_analysis/b97e93229bdab65e6e62842a8052dbd93991a730/docs/pvs_analysis.html" target="_blank">b97e932</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -667,6 +703,62 @@ markdown analysis
 <p>Problem:</p>
 <p>The beta prime vs secondary plots are not in the same scale.</p>
 <p>e.g.</p>
+<pre class="r"><code>dapg_file_pattern &lt;- &quot;/Users/joshjiang/hakylab/gtex-gwas-analysis/data/dapg_selected_variants/expression/gwas_and_eqtl/DAPG_with_mashr__{tissue}.rds&quot;
+phenotype_lst &lt;- readLines(&quot;/Users/joshjiang/hakylab/gtex-gwas-analysis/data/phenotype_list.txt&quot;)
+metadata &lt;- read_tsv(&quot;/Users/joshjiang/hakylab/gtex-gwas-analysis/data/gwas_metadata.txt&quot;) %&gt;% rename(phenotype=Tag)
+tissue &lt;- &quot;Whole_Blood&quot;
+
+phenotype &lt;- &quot;Astle_et_al_2016_Eosinophil_counts&quot;
+df &lt;- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
+short_phenotype &lt;- as.character(metadata[metadata$phenotype==phenotype, &quot;new_Phenotype&quot;])
+df_2_eqtl &lt;- df %&gt;%
+  group_by(tissue, phenotype, gene_id) %&gt;%
+  filter(n() == 2) %&gt;%
+  mutate(rank = order(order(abs(eqtl_effect_size), decreasing=TRUE))) %&gt;%
+  mutate(rank = paste0(&quot;rank&quot;, rank)) %&gt;%
+  mutate(beta_gene=gwas_effect_size/eqtl_effect_size) %&gt;%
+  select(tissue, phenotype, gene_id, rank, beta_gene) %&gt;%
+  spread(key=rank, value=beta_gene)
+df_2_eqtl &lt;- df_2_eqtl[df_2_eqtl$rank1 &gt; quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) &amp; df_2_eqtl$rank1 &lt; quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
+df_2_eqtl &lt;- df_2_eqtl[df_2_eqtl$rank2 &gt; quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) &amp; df_2_eqtl$rank2 &lt; quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
+
+plot_title &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - {gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=short_phenotype)}\nPrimary vs. secondary eQTL&quot; %&gt;% glue::glue()
+
+pp1 &lt;- ggplot(df_2_eqtl, aes(rank1, rank2))
+pp1 &lt;- pp1 + geom_point(alpha=.2, size=4)
+pp1 &lt;- pp1 + theme_bw(base_size=20)
+pp1 &lt;- pp1 + geom_abline(slope=1,intercept=0)
+pp1 &lt;- pp1 + stat_density2d(color = &quot;grey&quot;, contour = TRUE)
+pp1 &lt;- pp1 + ggtitle(plot_title)
+pp1 &lt;- pp1 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp1 &lt;- pp1 + xlim(c(-0.06,0.06)) + ylim(c(-0.06,0.06))
+
+phenotype &lt;- &quot;UKB_20002_1094_self_reported_deep_venous_thrombosis_dvt&quot;
+df &lt;- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
+short_phenotype &lt;- as.character(metadata[metadata$phenotype==phenotype, &quot;new_Phenotype&quot;])
+df_2_eqtl &lt;- df %&gt;%
+  group_by(tissue, phenotype, gene_id) %&gt;%
+  filter(n() == 2) %&gt;%
+  mutate(rank = order(order(abs(eqtl_effect_size), decreasing=TRUE))) %&gt;%
+  mutate(rank = paste0(&quot;rank&quot;, rank)) %&gt;%
+  mutate(beta_gene=gwas_effect_size/eqtl_effect_size) %&gt;%
+  select(tissue, phenotype, gene_id, rank, beta_gene) %&gt;%
+  spread(key=rank, value=beta_gene)
+df_2_eqtl &lt;- df_2_eqtl[df_2_eqtl$rank1 &gt; quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) &amp; df_2_eqtl$rank1 &lt; quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
+df_2_eqtl &lt;- df_2_eqtl[df_2_eqtl$rank2 &gt; quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) &amp; df_2_eqtl$rank2 &lt; quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
+
+plot_title &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - {gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=short_phenotype)}\nPrimary vs. secondary eQTL&quot; %&gt;% glue::glue()
+
+pp2 &lt;- ggplot(df_2_eqtl, aes(rank1, rank2))
+pp2 &lt;- pp2 + geom_point(alpha=.2, size=4)
+pp2 &lt;- pp2 + theme_bw(base_size=20)
+pp2 &lt;- pp2 + geom_abline(slope=1,intercept=0)
+pp2 &lt;- pp2 + stat_density2d(color = &quot;grey&quot;, contour = TRUE)
+pp2 &lt;- pp2 + ggtitle(plot_title)
+pp2 &lt;- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp2 &lt;- pp2 + xlim(c(-0.06,0.06)) + ylim(c(-0.06,0.06))
+
+grid.arrange(pp1,pp2,nrow=1)</code></pre>
 <p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
@@ -706,6 +798,61 @@ zjiang2
 </div>
 </div>
 <p>This can be fixed by normalizing the effect sizes (dividing the gwas and eqtl effect sizes by their respective standard deviations) and readjusting the limits:</p>
+<pre class="r"><code>phenotype &lt;- &quot;Astle_et_al_2016_Eosinophil_counts&quot;
+df &lt;- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
+df[&#39;eqtl_effect_size&#39;] &lt;- df[&#39;eqtl_effect_size&#39;]/sd(df$eqtl_effect_size, na.rm=TRUE)
+df[&#39;gwas_effect_size&#39;] &lt;- df[&#39;gwas_effect_size&#39;]/sd(df$gwas_effect_size, na.rm=TRUE)
+short_phenotype &lt;- as.character(metadata[metadata$phenotype==phenotype, &quot;new_Phenotype&quot;])
+df_2_eqtl &lt;- df %&gt;%
+  group_by(tissue, phenotype, gene_id) %&gt;%
+  filter(n() == 2) %&gt;%
+  mutate(rank = order(order(abs(eqtl_effect_size), decreasing=TRUE))) %&gt;%
+  mutate(rank = paste0(&quot;rank&quot;, rank)) %&gt;%
+  mutate(beta_gene=gwas_effect_size/eqtl_effect_size) %&gt;%
+  select(tissue, phenotype, gene_id, rank, beta_gene) %&gt;%
+  spread(key=rank, value=beta_gene)
+df_2_eqtl &lt;- df_2_eqtl[df_2_eqtl$rank1 &gt; quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) &amp; df_2_eqtl$rank1 &lt; quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
+df_2_eqtl &lt;- df_2_eqtl[df_2_eqtl$rank2 &gt; quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) &amp; df_2_eqtl$rank2 &lt; quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
+
+plot_title &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - {gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=short_phenotype)}\nPrimary vs. secondary eQTL&quot; %&gt;% glue::glue()
+
+pp1 &lt;- ggplot(df_2_eqtl, aes(rank1, rank2))
+pp1 &lt;- pp1 + geom_point(alpha=.2, size=4)
+pp1 &lt;- pp1 + theme_bw(base_size=20)
+pp1 &lt;- pp1 + geom_abline(slope=1,intercept=0)
+pp1 &lt;- pp1 + stat_density2d(color = &quot;grey&quot;, contour = TRUE)
+pp1 &lt;- pp1 + ggtitle(plot_title)
+pp1 &lt;- pp1 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp1 &lt;- pp1 + xlim(c(-2,2)) + ylim(c(-2,2))
+
+phenotype &lt;- &quot;UKB_20002_1094_self_reported_deep_venous_thrombosis_dvt&quot;
+df &lt;- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
+df[&#39;eqtl_effect_size&#39;] &lt;- df[&#39;eqtl_effect_size&#39;]/sd(df$eqtl_effect_size, na.rm=TRUE)
+df[&#39;gwas_effect_size&#39;] &lt;- df[&#39;gwas_effect_size&#39;]/sd(df$gwas_effect_size, na.rm=TRUE)
+short_phenotype &lt;- as.character(metadata[metadata$phenotype==phenotype, &quot;new_Phenotype&quot;])
+df_2_eqtl &lt;- df %&gt;%
+  group_by(tissue, phenotype, gene_id) %&gt;%
+  filter(n() == 2) %&gt;%
+  mutate(rank = order(order(abs(eqtl_effect_size), decreasing=TRUE))) %&gt;%
+  mutate(rank = paste0(&quot;rank&quot;, rank)) %&gt;%
+  mutate(beta_gene=gwas_effect_size/eqtl_effect_size) %&gt;%
+  select(tissue, phenotype, gene_id, rank, beta_gene) %&gt;%
+  spread(key=rank, value=beta_gene)
+df_2_eqtl &lt;- df_2_eqtl[df_2_eqtl$rank1 &gt; quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) &amp; df_2_eqtl$rank1 &lt; quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
+df_2_eqtl &lt;- df_2_eqtl[df_2_eqtl$rank2 &gt; quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) &amp; df_2_eqtl$rank2 &lt; quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
+
+plot_title &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - {gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=short_phenotype)}\nPrimary vs. secondary eQTL&quot; %&gt;% glue::glue()
+
+pp2 &lt;- ggplot(df_2_eqtl, aes(rank1, rank2))
+pp2 &lt;- pp2 + geom_point(alpha=.2, size=4)
+pp2 &lt;- pp2 + theme_bw(base_size=20)
+pp2 &lt;- pp2 + geom_abline(slope=1,intercept=0)
+pp2 &lt;- pp2 + stat_density2d(color = &quot;grey&quot;, contour = TRUE)
+pp2 &lt;- pp2 + ggtitle(plot_title)
+pp2 &lt;- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp2 &lt;- pp2 + xlim(c(-2,2)) + ylim(c(-2,2))
+
+grid.arrange(pp1,pp2,nrow=1)</code></pre>
 <p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
@@ -744,8 +891,54 @@ zjiang2
 </table>
 </div>
 </div>
-<p>An interesting observation is that the variance of <span class="math inline">\(\beta_{sec}\)</span> is higher than that of <span class="math inline">\(\beta_{prim}\)</span>. This is obvious if you zoom out of both of the above graphs.</p>
+<p>An interesting observation is that the variance of <span class="math inline">\(\beta_{sec}\)</span> is higher than that of <span class="math inline">\(\beta_{prim}\)</span>. This is obvious if you zoom out of both of the above graphs:</p>
+<pre class="r"><code>pp1 &lt;- pp1 + xlim(c(-4,4)) + ylim(c(-4,4))
+
+pp2 &lt;- pp2 + xlim(c(-4,4)) + ylim(c(-4,4))
+
+grid.arrange(pp1,pp2,nrow=1)</code></pre>
 <p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/b97e93229bdab65e6e62842a8052dbd93991a730/docs/figure/pvs_analysis.Rmd/unnamed-chunk-3-1.png" target="_blank">b97e932</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Here is qqplot for one phenotype:</p>
+<pre class="r"><code>qqplot(x=df_2_eqtl$rank1,y=df_2_eqtl$rank2,xlab=expression(beta[prim]),ylab=expression(beta[sec]),main=plot_title)
+abline(a=0,b=1,col=&quot;grey&quot;)</code></pre>
+<p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
