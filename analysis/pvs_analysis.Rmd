@@ -47,7 +47,7 @@ pp1 <- pp1 + geom_abline(slope=1,intercept=0)
 pp1 <- pp1 + stat_density2d(color = "grey", contour = TRUE)
 pp1 <- pp1 + ggtitle(plot_title)
 pp1 <- pp1 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp1 <- pp1 + xlim(c(-0.06,0.06)) + ylim(c(-0.06,0.06))
+pp1 <- pp1 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06))
 
 phenotype <- "UKB_20002_1094_self_reported_deep_venous_thrombosis_dvt"
 df <- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
@@ -72,7 +72,7 @@ pp2 <- pp2 + geom_abline(slope=1,intercept=0)
 pp2 <- pp2 + stat_density2d(color = "grey", contour = TRUE)
 pp2 <- pp2 + ggtitle(plot_title)
 pp2 <- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp2 <- pp2 + xlim(c(-0.06,0.06)) + ylim(c(-0.06,0.06))
+pp2 <- pp2 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06))
 
 grid.arrange(pp1,pp2,nrow=1)
 ```
@@ -103,10 +103,10 @@ pp1 <- ggplot(df_2_eqtl, aes(rank1, rank2))
 pp1 <- pp1 + geom_point(alpha=.2, size=4)
 pp1 <- pp1 + theme_bw(base_size=20)
 pp1 <- pp1 + geom_abline(slope=1,intercept=0)
-pp1 <- pp1 + stat_density2d(color = "grey", contour = TRUE)
+pp1 <- pp1 + stat_density2d(color = alpha("grey",0.6), contour = TRUE)
 pp1 <- pp1 + ggtitle(plot_title)
 pp1 <- pp1 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp1 <- pp1 + xlim(c(-2,2)) + ylim(c(-2,2))
+pp1 <- pp1 + coord_cartesian(xlim=c(-2,2), ylim=c(-2,2))
 
 phenotype <- "UKB_20002_1094_self_reported_deep_venous_thrombosis_dvt"
 df <- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
@@ -133,7 +133,7 @@ pp2 <- pp2 + geom_abline(slope=1,intercept=0)
 pp2 <- pp2 + stat_density2d(color = "grey", contour = TRUE)
 pp2 <- pp2 + ggtitle(plot_title)
 pp2 <- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp2 <- pp2 + xlim(c(-2,2)) + ylim(c(-2,2))
+pp2 <- pp2 + coord_cartesian(xlim=c(-2,2), ylim=c(-2,2))
 
 grid.arrange(pp1,pp2,nrow=1)
 ```
@@ -141,15 +141,14 @@ grid.arrange(pp1,pp2,nrow=1)
 An interesting observation is that the variance of $\beta_{sec}$ is higher than that of $\beta_{prim}$. This is obvious if you zoom out of both of the above graphs:
 
 ```{r,warning=FALSE,message=FALSE}
-
 pp1 <- pp1 + xlim(c(-4,4)) + ylim(c(-4,4))
-
 pp2 <- pp2 + xlim(c(-4,4)) + ylim(c(-4,4))
-
 grid.arrange(pp1,pp2,nrow=1)
 ```
 
-Here is qqplot for one phenotype:
+This can be explained because $\beta_{prim}$ and $\beta_{sec}$ is determined by the SNP with the larger EQTL effect size being the primary and the smaller being the secondary and ${\beta}=\frac{GWASeffectsize}{EQTLeffectsize}$
+
+Here is qqplot for Eosinophil Count:
 
 ```{r}
 qqplot(x=df_2_eqtl$rank1,y=df_2_eqtl$rank2,xlab=expression(beta[prim]),ylab=expression(beta[sec]),main=plot_title)
