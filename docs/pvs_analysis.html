@@ -542,10 +542,10 @@ environment
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree7d2727eade9a42a6140fb8eb182afac1d4804e3atargetblank7d2727ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/tree/7d2727eade9a42a6140fb8eb182afac1d4804e3a" target="_blank">7d2727e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree4d1f68286586cfdf18de951e06ca78428598610etargetblank4d1f682a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/tree/4d1f68286586cfdf18de951e06ca78428598610e" target="_blank">4d1f682</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree7d2727eade9a42a6140fb8eb182afac1d4804e3atargetblank7d2727ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree4d1f68286586cfdf18de951e06ca78428598610etargetblank4d1f682a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -593,6 +593,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/4d1f68286586cfdf18de951e06ca78428598610e/analysis/pvs_analysis.Rmd" target="_blank">4d1f682</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-07
+</td>
+<td>
+patch
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zjiang2/beta_prim_vs_sec_analysis/4dcd3ff4dfdf5fbfe59e3dcfc451f6646cac362c/docs/pvs_analysis.html" target="_blank">4dcd3ff</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1034,8 +1068,8 @@ zjiang2
 </div>
 </div>
 <p>An interesting observation is that the variance of <span class="math inline">\(\beta_{sec}\)</span> is higher than that of <span class="math inline">\(\beta_{prim}\)</span>. This is obvious if you zoom out of both of the above graphs:</p>
-<pre class="r"><code>pp1 &lt;- pp1 + xlim(c(-4,4)) + ylim(c(-4,4))
-pp2 &lt;- pp2 + xlim(c(-4,4)) + ylim(c(-4,4))
+<pre class="r"><code>pp1 &lt;- pp1 + coord_cartesian(xlim=c(-4,4), ylim=c(-4,4))
+pp2 &lt;- pp2 + coord_cartesian(xlim=c(-4,4), ylim=c(-4,4))
 grid.arrange(pp1,pp2,nrow=1)</code></pre>
 <p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
