@@ -141,8 +141,8 @@ grid.arrange(pp1,pp2,nrow=1)
 An interesting observation is that the variance of $\beta_{sec}$ is higher than that of $\beta_{prim}$. This is obvious if you zoom out of both of the above graphs:
 
 ```{r,warning=FALSE,message=FALSE}
-pp1 <- pp1 + xlim(c(-4,4)) + ylim(c(-4,4))
-pp2 <- pp2 + xlim(c(-4,4)) + ylim(c(-4,4))
+pp1 <- pp1 + coord_cartesian(xlim=c(-4,4), ylim=c(-4,4))
+pp2 <- pp2 + coord_cartesian(xlim=c(-4,4), ylim=c(-4,4))
 grid.arrange(pp1,pp2,nrow=1)
 ```
 
