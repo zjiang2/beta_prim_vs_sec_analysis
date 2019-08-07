@@ -86,7 +86,7 @@ df <- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
 df['eqtl_effect_size'] <- df['eqtl_effect_size']/sd(df$eqtl_effect_size, na.rm=TRUE)
 df['gwas_effect_size'] <- df['gwas_effect_size']/sd(df$gwas_effect_size, na.rm=TRUE)
 short_phenotype <- as.character(metadata[metadata$phenotype==phenotype, "new_Phenotype"])
-df_2_eqtl <- df %>%
+df_2_eqtl_eos <- df %>%
   group_by(tissue, phenotype, gene_id) %>%
   filter(n() == 2) %>%
   mutate(rank = order(order(abs(eqtl_effect_size), decreasing=TRUE))) %>%
@@ -94,12 +94,12 @@ df_2_eqtl <- df %>%
   mutate(beta_gene=gwas_effect_size/eqtl_effect_size) %>%
   select(tissue, phenotype, gene_id, rank, beta_gene) %>%
   spread(key=rank, value=beta_gene)
-df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank1 > quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) & df_2_eqtl$rank1 < quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
-df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank2 > quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) & df_2_eqtl$rank2 < quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
+df_2_eqtl_eos <- df_2_eqtl_eos[df_2_eqtl_eos$rank1 > quantile(df_2_eqtl_eos$rank1, 0.05, na.rm = TRUE) & df_2_eqtl_eos$rank1 < quantile(df_2_eqtl_eos$rank1, 0.95, na.rm = TRUE),]
+df_2_eqtl_eos <- df_2_eqtl_eos[df_2_eqtl_eos$rank2 > quantile(df_2_eqtl_eos$rank2, 0.05, na.rm = TRUE) & df_2_eqtl_eos$rank2 < quantile(df_2_eqtl_eos$rank2, 0.95, na.rm = TRUE),]
 
-plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
+plot_title_eos <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
 
-pp1 <- ggplot(df_2_eqtl, aes(rank1, rank2))
+pp1 <- ggplot(df_2_eqtl_eos, aes(rank1, rank2))
 pp1 <- pp1 + geom_point(alpha=.2, size=4)
 pp1 <- pp1 + theme_bw(base_size=20)
 pp1 <- pp1 + geom_abline(slope=1,intercept=0)
@@ -113,7 +113,7 @@ df <- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
 df['eqtl_effect_size'] <- df['eqtl_effect_size']/sd(df$eqtl_effect_size, na.rm=TRUE)
 df['gwas_effect_size'] <- df['gwas_effect_size']/sd(df$gwas_effect_size, na.rm=TRUE)
 short_phenotype <- as.character(metadata[metadata$phenotype==phenotype, "new_Phenotype"])
-df_2_eqtl <- df %>%
+df_2_eqtl_throm <- df %>%
   group_by(tissue, phenotype, gene_id) %>%
   filter(n() == 2) %>%
   mutate(rank = order(order(abs(eqtl_effect_size), decreasing=TRUE))) %>%
@@ -121,12 +121,12 @@ df_2_eqtl <- df %>%
   mutate(beta_gene=gwas_effect_size/eqtl_effect_size) %>%
   select(tissue, phenotype, gene_id, rank, beta_gene) %>%
   spread(key=rank, value=beta_gene)
-df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank1 > quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) & df_2_eqtl$rank1 < quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
-df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank2 > quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) & df_2_eqtl$rank2 < quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
+df_2_eqtl_throm <- df_2_eqtl_throm[df_2_eqtl_throm$rank1 > quantile(df_2_eqtl_throm$rank1, 0.05, na.rm = TRUE) & df_2_eqtl_throm$rank1 < quantile(df_2_eqtl_throm$rank1, 0.95, na.rm = TRUE),]
+df_2_eqtl_throm <- df_2_eqtl_throm[df_2_eqtl_throm$rank2 > quantile(df_2_eqtl_throm$rank2, 0.05, na.rm = TRUE) & df_2_eqtl_throm$rank2 < quantile(df_2_eqtl_throm$rank2, 0.95, na.rm = TRUE),]
 
-plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
+plot_title_throm <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
 
-pp2 <- ggplot(df_2_eqtl, aes(rank1, rank2))
+pp2 <- ggplot(df_2_eqtl_throm, aes(rank1, rank2))
 pp2 <- pp2 + geom_point(alpha=.2, size=4)
 pp2 <- pp2 + theme_bw(base_size=20)
 pp2 <- pp2 + geom_abline(slope=1,intercept=0)
@@ -151,7 +151,7 @@ This can be explained because $\beta_{prim}$ and $\beta_{sec}$ is determined by 
 Here is qqplot for Eosinophil Count:
 
 ```{r}
-qqplot(x=df_2_eqtl$rank1,y=df_2_eqtl$rank2,xlab=expression(beta[prim]),ylab=expression(beta[sec]),main=plot_title)
+qqplot(x=df_2_eqtl_eos$rank1,y=df_2_eqtl_eos$rank2,xlab=expression(beta[prim]),ylab=expression(beta[sec]),main=plot_title_eos)
 abline(a=0,b=1,col="grey")
 ```
 
