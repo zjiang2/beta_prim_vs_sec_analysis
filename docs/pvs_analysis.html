@@ -406,7 +406,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-08-06
+<strong>Last updated:</strong> 2019-08-07
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -542,16 +542,18 @@ environment
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree7bd2afd681149880560d1907e4d31fd164a1457etargetblank7bd2afda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/tree/7bd2afd681149880560d1907e4d31fd164a1457e" target="_blank">7bd2afd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree2ebde8a30cfa4c3a4bb2cfe557a1878a554d4a6ctargetblank2ebde8aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/tree/2ebde8a30cfa4c3a4bb2cfe557a1878a554d4a6c" target="_blank">2ebde8a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree7bd2afd681149880560d1907e4d31fd164a1457etargetblank7bd2afda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree2ebde8a30cfa4c3a4bb2cfe557a1878a554d4a6ctargetblank2ebde8aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
 
 </code></pre>
@@ -591,6 +593,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/2ebde8a30cfa4c3a4bb2cfe557a1878a554d4a6c/analysis/pvs_analysis.Rmd" target="_blank">2ebde8a</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-07
+</td>
+<td>
+changed qqplot
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zjiang2/beta_prim_vs_sec_analysis/196f25d4e8c523b1479b4f4b7c06388196caa74d/docs/pvs_analysis.html" target="_blank">196f25d</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -731,7 +767,7 @@ pp1 &lt;- pp1 + geom_abline(slope=1,intercept=0)
 pp1 &lt;- pp1 + stat_density2d(color = &quot;grey&quot;, contour = TRUE)
 pp1 &lt;- pp1 + ggtitle(plot_title)
 pp1 &lt;- pp1 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp1 &lt;- pp1 + xlim(c(-0.06,0.06)) + ylim(c(-0.06,0.06))
+pp1 &lt;- pp1 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06))
 
 phenotype &lt;- &quot;UKB_20002_1094_self_reported_deep_venous_thrombosis_dvt&quot;
 df &lt;- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
@@ -756,7 +792,7 @@ pp2 &lt;- pp2 + geom_abline(slope=1,intercept=0)
 pp2 &lt;- pp2 + stat_density2d(color = &quot;grey&quot;, contour = TRUE)
 pp2 &lt;- pp2 + ggtitle(plot_title)
 pp2 &lt;- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp2 &lt;- pp2 + xlim(c(-0.06,0.06)) + ylim(c(-0.06,0.06))
+pp2 &lt;- pp2 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06))
 
 grid.arrange(pp1,pp2,nrow=1)</code></pre>
 <p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -782,6 +818,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/196f25d4e8c523b1479b4f4b7c06388196caa74d/docs/figure/pvs_analysis.Rmd/unnamed-chunk-1-1.png" target="_blank">196f25d</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/2e2c9ab73f6080bde4eec1e50a6445372065a323/docs/figure/pvs_analysis.Rmd/unnamed-chunk-1-1.png" target="_blank">2e2c9ab</a>
@@ -820,10 +867,10 @@ pp1 &lt;- ggplot(df_2_eqtl, aes(rank1, rank2))
 pp1 &lt;- pp1 + geom_point(alpha=.2, size=4)
 pp1 &lt;- pp1 + theme_bw(base_size=20)
 pp1 &lt;- pp1 + geom_abline(slope=1,intercept=0)
-pp1 &lt;- pp1 + stat_density2d(color = &quot;grey&quot;, contour = TRUE)
+pp1 &lt;- pp1 + stat_density2d(color = alpha(&quot;grey&quot;,0.6), contour = TRUE)
 pp1 &lt;- pp1 + ggtitle(plot_title)
 pp1 &lt;- pp1 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp1 &lt;- pp1 + xlim(c(-2,2)) + ylim(c(-2,2))
+pp1 &lt;- pp1 + coord_cartesian(xlim=c(-2,2), ylim=c(-2,2))
 
 phenotype &lt;- &quot;UKB_20002_1094_self_reported_deep_venous_thrombosis_dvt&quot;
 df &lt;- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
@@ -850,7 +897,7 @@ pp2 &lt;- pp2 + geom_abline(slope=1,intercept=0)
 pp2 &lt;- pp2 + stat_density2d(color = &quot;grey&quot;, contour = TRUE)
 pp2 &lt;- pp2 + ggtitle(plot_title)
 pp2 &lt;- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp2 &lt;- pp2 + xlim(c(-2,2)) + ylim(c(-2,2))
+pp2 &lt;- pp2 + coord_cartesian(xlim=c(-2,2), ylim=c(-2,2))
 
 grid.arrange(pp1,pp2,nrow=1)</code></pre>
 <p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -878,6 +925,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/196f25d4e8c523b1479b4f4b7c06388196caa74d/docs/figure/pvs_analysis.Rmd/unnamed-chunk-2-1.png" target="_blank">196f25d</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/2e2c9ab73f6080bde4eec1e50a6445372065a323/docs/figure/pvs_analysis.Rmd/unnamed-chunk-2-1.png" target="_blank">2e2c9ab</a>
 </td>
 <td>
@@ -893,9 +951,7 @@ zjiang2
 </div>
 <p>An interesting observation is that the variance of <span class="math inline">\(\beta_{sec}\)</span> is higher than that of <span class="math inline">\(\beta_{prim}\)</span>. This is obvious if you zoom out of both of the above graphs:</p>
 <pre class="r"><code>pp1 &lt;- pp1 + xlim(c(-4,4)) + ylim(c(-4,4))
-
 pp2 &lt;- pp2 + xlim(c(-4,4)) + ylim(c(-4,4))
-
 grid.arrange(pp1,pp2,nrow=1)</code></pre>
 <p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -922,6 +978,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/196f25d4e8c523b1479b4f4b7c06388196caa74d/docs/figure/pvs_analysis.Rmd/unnamed-chunk-3-1.png" target="_blank">196f25d</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/b97e93229bdab65e6e62842a8052dbd93991a730/docs/figure/pvs_analysis.Rmd/unnamed-chunk-3-1.png" target="_blank">b97e932</a>
 </td>
 <td>
@@ -935,10 +1002,48 @@ zjiang2
 </table>
 </div>
 </div>
-<p>Here is qqplot for one phenotype:</p>
+<p>This can be explained because <span class="math inline">\(\beta_{prim}\)</span> and <span class="math inline">\(\beta_{sec}\)</span> is determined by the SNP with the larger EQTL effect size being the primary and the smaller being the secondary and <span class="math inline">\({\beta}=\frac{GWASeffectsize}{EQTLeffectsize}\)</span></p>
+<p>Here is qqplot for Eosinophil Count:</p>
 <pre class="r"><code>qqplot(x=df_2_eqtl$rank1,y=df_2_eqtl$rank2,xlab=expression(beta[prim]),ylab=expression(beta[sec]),main=plot_title)
 abline(a=0,b=1,col=&quot;grey&quot;)</code></pre>
 <p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/196f25d4e8c523b1479b4f4b7c06388196caa74d/docs/figure/pvs_analysis.Rmd/unnamed-chunk-4-1.png" target="_blank">196f25d</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
