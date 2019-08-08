@@ -77,7 +77,7 @@ pp2 <- pp2 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06))
 grid.arrange(pp1,pp2,nrow=1)
 ```
 
-This can be fixed by normalizing the effect sizes (dividing the gwas and eqtl effect sizes by their respective standard deviations) and readjusting the limits:
+This can be fixed by normalizing the effect sizes and readjusting the limits:
 
 ```{r,warning=FALSE,message=FALSE}
 
@@ -157,3 +157,4 @@ qqplot(x=df_2_eqtl_eos$rank1,y=df_2_eqtl_eos$rank2,xlab=expression(beta[prim]),y
 abline(a=0,b=1,col="grey")
 ```
 
+Click on this [link](all_qqplots.html) for a q-q plot for every phenotype.
