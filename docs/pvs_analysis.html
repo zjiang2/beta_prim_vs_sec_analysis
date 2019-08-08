@@ -542,10 +542,10 @@ environment
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistreeb0be262ac3be34bd8158c54c64daac521891d814targetblankb0be262a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/tree/b0be262ac3be34bd8158c54c64daac521891d814" target="_blank">b0be262</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree936ef02e109ba837e4f8a8bebad40da2f697cacatargetblank936ef02a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/tree/936ef02e109ba837e4f8a8bebad40da2f697caca" target="_blank">936ef02</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistreeb0be262ac3be34bd8158c54c64daac521891d814targetblankb0be262a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree936ef02e109ba837e4f8a8bebad40da2f697cacatargetblank936ef02a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -555,6 +555,9 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  docs/figure/all_qqplots.Rmd/
 
 </code></pre>
 <p>
@@ -593,6 +596,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/936ef02e109ba837e4f8a8bebad40da2f697caca/analysis/pvs_analysis.Rmd" target="_blank">936ef02</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-08
+</td>
+<td>
+add all qqplots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zjiang2/beta_prim_vs_sec_analysis/4d52a445fff4127dee294b70e2c272ccda3301a6/docs/pvs_analysis.html" target="_blank">4d52a44</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1008,7 +1045,7 @@ zjiang2
 </table>
 </div>
 </div>
-<p>This can be fixed by normalizing the effect sizes (dividing the gwas and eqtl effect sizes by their respective standard deviations) and readjusting the limits:</p>
+<p>This can be fixed by normalizing the effect sizes and readjusting the limits:</p>
 <pre class="r"><code>phenotype &lt;- &quot;Astle_et_al_2016_Eosinophil_counts&quot;
 df &lt;- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
 df[&#39;eqtl_effect_size&#39;] &lt;- df[&#39;eqtl_effect_size&#39;]/sd(df$eqtl_effect_size, na.rm=TRUE)
@@ -1089,6 +1126,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/4d52a445fff4127dee294b70e2c272ccda3301a6/docs/figure/pvs_analysis.Rmd/unnamed-chunk-2-1.png" target="_blank">4d52a44</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/7d2727eade9a42a6140fb8eb182afac1d4804e3a/docs/figure/pvs_analysis.Rmd/unnamed-chunk-2-1.png" target="_blank">7d2727e</a>
 </td>
 <td>
@@ -1163,6 +1211,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/4d52a445fff4127dee294b70e2c272ccda3301a6/docs/figure/pvs_analysis.Rmd/unnamed-chunk-3-1.png" target="_blank">4d52a44</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/f7c3fd6eb732982b3f2fe92825c61e46396d79e0/docs/figure/pvs_analysis.Rmd/unnamed-chunk-3-1.png" target="_blank">f7c3fd6</a>
@@ -1286,6 +1345,7 @@ zjiang2
 </table>
 </div>
 </div>
+<p>Click on this <a href="all_qqplots.html">link</a> for a q-q plot for every phenotype.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
