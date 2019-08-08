@@ -1,0 +1,54 @@
+---
+title: "all_pvs_plots"
+author: "joshjiang"
+date: "8/8/2019"
+output: html_document
+---
+
+```{r setup,include=FALSE}
+library(ggplot2)
+library(tidyverse)
+library(gridExtra)
+```
+
+```{r,warning=FALSE,message=FALSE}
+dapg_file_pattern <- "/Users/joshjiang/hakylab/gtex-gwas-analysis/data/dapg_selected_variants/expression/gwas_and_eqtl/DAPG_with_mashr__{tissue}.rds"
+phenotype_lst <- readLines("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/phenotype_list.txt")
+metadata <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/gwas_metadata.txt") %>% rename(phenotype=Tag)
+
+for (phenotype in phenotype_lst)
+{
+  tissue <- "Whole_Blood"
+  short_phenotype <- as.character(metadata[metadata$phenotype==phenotype, "new_Phenotype"])
+
+  df <- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
+  df['eqtl_effect_size'] <- df['eqtl_effect_size']/sd(df$eqtl_effect_size, na.rm=TRUE)
+  df['gwas_effect_size'] <- df['gwas_effect_size']/sd(df$gwas_effect_size, na.rm=TRUE)
+  
+  df_2_eqtl <- df %>%
+    group_by(tissue, phenotype, gene_id) %>%
+    filter(n() == 2) %>%
+    mutate(rank = order(order(abs(eqtl_effect_size), decreasing=TRUE))) %>%
+    mutate(rank = paste0("rank", rank)) %>% # rank1 = primary, rank2 = secondary
+    mutate(beta_gene=gwas_effect_size/eqtl_effect_size) %>%
+    select(tissue, phenotype, gene_id, rank, beta_gene) %>%
+    spread(key=rank, value=beta_gene)
+  
+  df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank1 > quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) & df_2_eqtl$rank1 < quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
+  df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank2 > quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) & df_2_eqtl$rank2 < quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
+
+  plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
+
+  pp <- ggplot(df_2_eqtl, aes(rank1, rank2))
+  pp <- pp + geom_point(alpha=.2, size=4)
+  pp <- pp + theme_bw(base_size=20)
+  pp <- pp + geom_abline(slope=1,intercept=0)
+  pp <- pp + stat_density2d(color = alpha(colour="grey",alpha=0.6), contour = TRUE)
+  pp <- pp + ggtitle(plot_title)
+  pp <- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+  pp <- pp + coord_cartesian(xlim=c(-2,2), ylim=c(-2,2))
+  
+  print(pp)
+}
+```
+
