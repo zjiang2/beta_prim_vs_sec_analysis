@@ -11,7 +11,7 @@ library(tidyverse)
 library(gridExtra)
 ```
 
-```{r,warning=FALSE,message=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
 dapg_file_pattern <- "/Users/joshjiang/hakylab/gtex-gwas-analysis/data/dapg_selected_variants/expression/gwas_and_eqtl/DAPG_with_mashr__{tissue}.rds"
 phenotype_lst <- readLines("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/phenotype_list.txt")
 metadata <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/gwas_metadata.txt") %>% rename(phenotype=Tag)
@@ -43,7 +43,7 @@ for (phenotype in phenotype_lst)
   pp <- pp + geom_point(alpha=.2, size=4)
   pp <- pp + theme_bw(base_size=20)
   pp <- pp + geom_abline(slope=1,intercept=0)
-  pp <- pp + stat_density2d(color = alpha(colour="grey",alpha=0.6), contour = TRUE)
+  pp <- pp + stat_density2d(color = "grey", contour = TRUE)
   pp <- pp + ggtitle(plot_title)
   pp <- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
   pp <- pp + coord_cartesian(xlim=c(-2,2), ylim=c(-2,2))
