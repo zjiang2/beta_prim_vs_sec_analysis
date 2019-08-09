@@ -39,11 +39,11 @@ for (phenotype in phenotype_lst)
 
   plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
 
-  pp <- ggplot(df_2_eqtl, aes(rank1, rank2))
+  pp <- ggplot(df_2_eqtl, aes(rank1, rank2)) + coord_fixed()
   pp <- pp + geom_point(alpha=.2, size=4)
   pp <- pp + theme_bw(base_size=20)
   pp <- pp + geom_abline(slope=1,intercept=0)
-  pp <- pp + stat_density2d(color = "grey", contour = TRUE)
+  pp <- pp + stat_density2d(color = alpha(colour="red",alpha=0.6), contour = TRUE)
   pp <- pp + ggtitle(plot_title)
   pp <- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
   pp <- pp + coord_cartesian(xlim=c(-2,2), ylim=c(-2,2))
