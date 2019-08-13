@@ -152,7 +152,7 @@ This can be explained because $\beta_{prim}$ and $\beta_{sec}$ is determined by 
 
 Here is qqplot for Eosinophil Count:
 
-```{r}
+```{r,warning=FALSE,message=FALSE}
 qqplot(x=df_2_eqtl_eos$rank1,y=df_2_eqtl_eos$rank2,xlab=expression(beta[prim]),ylab=expression(beta[sec]),main=plot_title_eos)
 abline(a=0,b=1,col=alpha(colour="red",alpha=0.6))
 ```
@@ -161,7 +161,7 @@ Click on this [link](all_qqplots.html) for a q-q plot for every phenotype.
 
 Filtering the plots for genes for colocalized variants (using enloc) and combining every phenotype and tissue yields:
 
-```{r}
+```{r,warning=FALSE,message=FALSE}
 df_master <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_joined.txt")
 tissue <- "Whole_Blood"
 plot_title <- "All Tissue - All Phenotypes - Enloc\nPrimary vs. secondary eQTL" %>% glue::glue()

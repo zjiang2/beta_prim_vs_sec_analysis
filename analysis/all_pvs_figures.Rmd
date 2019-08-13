@@ -11,7 +11,7 @@ library(tidyverse)
 library(gridExtra)
 ```
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE}
+```{r,warning=FALSE,message=FALSE}
 dapg_file_pattern <- "/Users/joshjiang/hakylab/gtex-gwas-analysis/data/dapg_selected_variants/expression/gwas_and_eqtl/DAPG_with_mashr__{tissue}.rds"
 phenotype_lst <- readLines("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/phenotype_list.txt")
 metadata <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/gwas_metadata.txt") %>% rename(phenotype=Tag)
