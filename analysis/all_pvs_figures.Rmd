@@ -44,7 +44,7 @@ for (phenotype in phenotype_lst)
   pp <- pp + theme_bw(base_size=20)
   pp <- pp + geom_abline(slope=1,intercept=0)
   pp <- pp + stat_density2d(color = alpha(colour="red",alpha=0.6), contour = TRUE)
-  pp <- pp + ggtitle(plot_title)
+  pp <- pp + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
   pp <- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
   pp <- pp + coord_fixed(ratio=1, xlim=c(-2,2), ylim=c(-2,2))
   
