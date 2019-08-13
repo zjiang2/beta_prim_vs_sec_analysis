@@ -179,7 +179,7 @@ pp <- pp + coord_fixed(ratio=1, xlim=c(-3,3), ylim=c(-3,3))
 pp
 ```
 
-Click on this [link](all_coloc_tissue.html) for a q-q plot for every phenotype.
+Click on this [link](all_coloc_tissue.html) for a q-q plot for every tissue.
 
 
 
