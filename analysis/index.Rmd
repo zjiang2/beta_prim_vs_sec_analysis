@@ -16,4 +16,6 @@ Click on this [link](all_pvs_figures.html) for a prim vs sec plot for every phen
 
 Click on this [link](all_qqplots.html) for a q-q plot for every phenotype.
 
-Click on this [link](all_coloc_tissue.html) for a prim vs sec plot for every tissue, colocalized genes only.
+Click on this [link](all_enloc_tissue.html) for a prim vs sec plot for every tissue, enloc genes only.
+
+Click on this [link](all_enloc_phenotype.html) for a prim vs sec plot for every phenotype, enloc genes only.

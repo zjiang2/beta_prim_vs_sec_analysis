@@ -159,15 +159,14 @@ abline(a=0,b=1,col=alpha(colour="red",alpha=0.6))
 
 Click on this [link](all_qqplots.html) for a q-q plot for every phenotype.
 
-Filtering the plots for genes with colocalized variants and combining every phenotype yields:
+Filtering the plots for genes for colocalized variants (using enloc) and combining every phenotype and tissue yields:
 
 ```{r}
 df_master <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_joined.txt")
 tissue <- "Whole_Blood"
-df <- df_master[df_master$tissue==tissue,]
-plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - coloc\nPrimary vs. secondary eQTL" %>% glue::glue()
+plot_title <- "All Tissue - All Phenotypes - Enloc\nPrimary vs. secondary eQTL" %>% glue::glue()
 
-pp <- ggplot(df, aes(rank1, rank2))
+pp <- ggplot(df_master, aes(rank1, rank2))
 pp <- pp + geom_point(alpha=.2, size=4)
 pp <- pp + theme_bw(base_size=20)
 pp <- pp + geom_abline(slope=1,intercept=0)
@@ -176,10 +175,10 @@ pp <- pp + ggtitle(plot_title)
 pp <- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
 pp <- pp + coord_fixed(ratio=1, xlim=c(-3,3), ylim=c(-3,3))
 
-pp
+print(pp)
 ```
 
-Click on this [link](all_coloc_tissue.html) for a q-q plot for every tissue.
+Click on this [link](all_enloc_tissue.html) for a prim vs sec plot for every tissue, enloc genes only.
 
-
+Click on this [link](all_enloc_phenotype.html) for a prim vs sec plot for every phenotype, enloc genes only.
 
