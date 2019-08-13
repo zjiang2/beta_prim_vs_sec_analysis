@@ -406,7 +406,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-08-09
+<strong>Last updated:</strong> 2019-08-13
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -542,10 +542,10 @@ environment
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistreefe91092098dbb463342777ca1e9e6c8768288c4etargetblankfe91092a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/tree/fe91092098dbb463342777ca1e9e6c8768288c4e" target="_blank">fe91092</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree369a5be7941716929a6cfaa9197e8afa3bba7556targetblank369a5bea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/tree/369a5be7941716929a6cfaa9197e8afa3bba7556" target="_blank">369a5be</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistreefe91092098dbb463342777ca1e9e6c8768288c4etargetblankfe91092a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree369a5be7941716929a6cfaa9197e8afa3bba7556targetblank369a5bea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -555,6 +555,7 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    docs/.DS_Store
 
 </code></pre>
 <p>
@@ -593,6 +594,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/369a5be7941716929a6cfaa9197e8afa3bba7556/analysis/pvs_analysis.Rmd" target="_blank">369a5be</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-13
+</td>
+<td>
+added coloc results
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zjiang2/beta_prim_vs_sec_analysis/75ade731db7b87a719358de01fee90a92ba77c57/docs/pvs_analysis.html" target="_blank">75ade73</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1013,7 +1048,7 @@ pp2 &lt;- pp2 + geom_abline(slope=1,intercept=0)
 pp2 &lt;- pp2 + stat_density2d(color = alpha(colour=&quot;red&quot;,alpha=0.6), contour = TRUE)
 pp2 &lt;- pp2 + ggtitle(plot_title)
 pp2 &lt;- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp2 &lt;- pp2 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06))
+pp2 &lt;- pp2 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06), clip=&quot;off&quot;)
 
 grid.arrange(pp1,pp2,nrow=1)</code></pre>
 <p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1039,6 +1074,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/75ade731db7b87a719358de01fee90a92ba77c57/docs/figure/pvs_analysis.Rmd/unnamed-chunk-1-1.png" target="_blank">75ade73</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/02adba91795cf7b69c2713a8a0c5a817653a9679/docs/figure/pvs_analysis.Rmd/unnamed-chunk-1-1.png" target="_blank">02adba9</a>
@@ -1157,6 +1203,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/75ade731db7b87a719358de01fee90a92ba77c57/docs/figure/pvs_analysis.Rmd/unnamed-chunk-2-1.png" target="_blank">75ade73</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/4d52a445fff4127dee294b70e2c272ccda3301a6/docs/figure/pvs_analysis.Rmd/unnamed-chunk-2-1.png" target="_blank">4d52a44</a>
 </td>
 <td>
@@ -1242,6 +1299,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/75ade731db7b87a719358de01fee90a92ba77c57/docs/figure/pvs_analysis.Rmd/unnamed-chunk-3-1.png" target="_blank">75ade73</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/4d52a445fff4127dee294b70e2c272ccda3301a6/docs/figure/pvs_analysis.Rmd/unnamed-chunk-3-1.png" target="_blank">4d52a44</a>
@@ -1352,6 +1420,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/75ade731db7b87a719358de01fee90a92ba77c57/docs/figure/pvs_analysis.Rmd/unnamed-chunk-4-1.png" target="_blank">75ade73</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/7d2727eade9a42a6140fb8eb182afac1d4804e3a/docs/figure/pvs_analysis.Rmd/unnamed-chunk-4-1.png" target="_blank">7d2727e</a>
 </td>
 <td>
@@ -1377,6 +1456,35 @@ zjiang2
 </div>
 </div>
 <p>Click on this <a href="all_qqplots.html">link</a> for a q-q plot for every phenotype.</p>
+<p>Filtering the plots for genes with colocalized variants and combining every phenotype yields:</p>
+<pre class="r"><code>df_master &lt;- read_tsv(&quot;/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_joined.txt&quot;)</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  PP_H4_abf = col_double(),
+  tissue = col_character(),
+  phenotype = col_character(),
+  gene_id = col_character(),
+  rcp = col_double(),
+  nindep = col_double(),
+  rank1 = col_double(),
+  rank2 = col_double()
+)</code></pre>
+<pre class="r"><code>tissue &lt;- &quot;Whole_Blood&quot;
+df &lt;- df_master[df_master$tissue==tissue,]
+plot_title &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - coloc\nPrimary vs. secondary eQTL&quot; %&gt;% glue::glue()
+
+pp &lt;- ggplot(df, aes(rank1, rank2))
+pp &lt;- pp + geom_point(alpha=.2, size=4)
+pp &lt;- pp + theme_bw(base_size=20)
+pp &lt;- pp + geom_abline(slope=1,intercept=0)
+pp &lt;- pp + stat_density2d(color = alpha(colour=&quot;red&quot;,alpha=0.6), contour = TRUE)
+pp &lt;- pp + ggtitle(plot_title)
+pp &lt;- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp &lt;- pp + coord_fixed(ratio=1, xlim=c(-3,3), ylim=c(-3,3))
+
+pp</code></pre>
+<p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Click on this <a href="all_coloc_tissue.html">link</a> for a q-q plot for every phenotype.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
