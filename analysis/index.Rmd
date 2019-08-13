@@ -15,3 +15,5 @@ Click on this [link](pvs_analysis.html) to see my results.
 Click on this [link](all_pvs_figures.html) for a prim vs sec plot for every phenotype.
 
 Click on this [link](all_qqplots.html) for a q-q plot for every phenotype.
+
+Click on this [link](all_coloc_tissue.html) for a prim vs sec plot for every tissue, colocalized genes only.

@@ -72,7 +72,7 @@ pp2 <- pp2 + geom_abline(slope=1,intercept=0)
 pp2 <- pp2 + stat_density2d(color = alpha(colour="red",alpha=0.6), contour = TRUE)
 pp2 <- pp2 + ggtitle(plot_title)
 pp2 <- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp2 <- pp2 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06))
+pp2 <- pp2 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06), clip="off")
 
 grid.arrange(pp1,pp2,nrow=1)
 ```
@@ -158,3 +158,28 @@ abline(a=0,b=1,col=alpha(colour="red",alpha=0.6))
 ```
 
 Click on this [link](all_qqplots.html) for a q-q plot for every phenotype.
+
+Filtering the plots for genes with colocalized variants and combining every phenotype yields:
+
+```{r}
+df_master <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_joined.txt")
+tissue <- "Whole_Blood"
+df <- df_master[df_master$tissue==tissue,]
+plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - coloc\nPrimary vs. secondary eQTL" %>% glue::glue()
+
+pp <- ggplot(df, aes(rank1, rank2))
+pp <- pp + geom_point(alpha=.2, size=4)
+pp <- pp + theme_bw(base_size=20)
+pp <- pp + geom_abline(slope=1,intercept=0)
+pp <- pp + stat_density2d(color = alpha(colour="red",alpha=0.6), contour = TRUE)
+pp <- pp + ggtitle(plot_title)
+pp <- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp <- pp + coord_fixed(ratio=1, xlim=c(-3,3), ylim=c(-3,3))
+
+pp
+```
+
+Click on this [link](all_coloc_tissue.html) for a q-q plot for every phenotype.
+
+
+
