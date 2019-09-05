@@ -19,3 +19,7 @@ Click on this [link](all_qqplots.html) for a q-q plot for every phenotype.
 Click on this [link](all_enloc_tissue.html) for a prim vs sec plot for every tissue, enloc genes only.
 
 Click on this [link](all_enloc_phenotype.html) for a prim vs sec plot for every phenotype, enloc genes only.
+
+Click on this [link](all_enloc_tissue_zscore.html) for a prim vs sec plot for every tissue, enloc genes only, ranked by z-score.
+
+Click on this [link](all_enloc_tissue_sharing.html) for a prim vs sec plot for every tissue, enloc genes only, ranked by z-score, color coded for tissue sharing, and clustered.

@@ -1,0 +1,41 @@
+---
+title: "all_enloc_tissue_sharing"
+author: "joshjiang"
+date: "9/5/2019"
+output: html_document
+---
+
+```{r setup,include=FALSE}
+library(ggplot2)
+library(tidyverse)
+library(gridExtra)
+library(ggalt)
+```
+
+```{r,warning=FALSE,message=FALSE}
+dapg_file_pattern <- "/Users/joshjiang/hakylab/gtex-gwas-analysis/data/dapg_selected_variants/expression/gwas_and_eqtl/DAPG_with_mashr__{tissue}.rds"
+tissue_lst <- readLines("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/tissue_list.txt")
+metadata <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/gwas_metadata.txt") %>% rename(phenotype=Tag)
+df_master <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_tissue_specificity.txt")
+
+for (tissue in tissue_lst)
+{
+  df <- df_master[df_master$tissue==tissue,]
+  tmp <- df[names(df) %in% c("zscore_rank1_beta","zscore_rank2_beta")]
+  k2 <- kmeans(tmp, centers = 6, nstart = 25)
+  df['cluster'] = k2$cluster
+  
+  plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - All Phenotypes - Enloc\nPrimary vs. secondary eQTL by Z-score" %>% glue::glue()
+  
+  pp <- ggplot(df, aes(x=zscore_rank1_beta, y=zscore_rank2_beta, color=zscore_share_group)) #color parameter to show genes that are tissue sharing/specific
+  pp <- pp + geom_point(alpha=.6, size=4) + geom_encircle(aes(group=cluster), s_shape = 1, expand = 0, color = "black", show.legend = FALSE)
+  pp <- pp + theme_bw() + theme(axis.text=element_text(size=20), axis.title.x=element_text(size=30), axis.title.y=element_text(size=30), plot.title=element_text(size=30))
+  pp <- pp + geom_abline(slope=1,intercept=0)
+  pp <- pp + ggtitle(plot_title)
+  pp <- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec])) + labs(color="Tissue Sharing")
+  pp <- pp + coord_fixed(ratio=1, xlim=c(-5,5), ylim=c(-5,5))
+  
+  print(pp)
+}
+```
+

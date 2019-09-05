@@ -9,6 +9,7 @@ output: html_document
 library(ggplot2)
 library(tidyverse)
 library(gridExtra)
+library(ggalt)
 ```
 
 Problem:
@@ -38,14 +39,14 @@ df_2_eqtl <- df %>%
 df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank1 > quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) & df_2_eqtl$rank1 < quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
 df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank2 > quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) & df_2_eqtl$rank2 < quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
 
-plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
+plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL Effect Size" %>% glue::glue()
 
 pp1 <- ggplot(df_2_eqtl, aes(rank1, rank2))
 pp1 <- pp1 + geom_point(alpha=.2, size=4)
 pp1 <- pp1 + theme_bw(base_size=20)
 pp1 <- pp1 + geom_abline(slope=1,intercept=0)
 pp1 <- pp1 + stat_density2d(color = alpha(colour="red",alpha=0.6), contour = TRUE)
-pp1 <- pp1 + ggtitle(plot_title)
+pp1 <- pp1 + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
 pp1 <- pp1 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
 pp1 <- pp1 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06))
 
@@ -63,14 +64,14 @@ df_2_eqtl <- df %>%
 df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank1 > quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) & df_2_eqtl$rank1 < quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
 df_2_eqtl <- df_2_eqtl[df_2_eqtl$rank2 > quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) & df_2_eqtl$rank2 < quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
 
-plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
+plot_title <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL Effect Size" %>% glue::glue()
 
 pp2 <- ggplot(df_2_eqtl, aes(rank1, rank2))
 pp2 <- pp2 + geom_point(alpha=.2, size=4)
 pp2 <- pp2 + theme_bw(base_size=20)
 pp2 <- pp2 + geom_abline(slope=1,intercept=0)
 pp2 <- pp2 + stat_density2d(color = alpha(colour="red",alpha=0.6), contour = TRUE)
-pp2 <- pp2 + ggtitle(plot_title)
+pp2 <- pp2 + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
 pp2 <- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
 pp2 <- pp2 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06), clip="off")
 
@@ -97,16 +98,16 @@ df_2_eqtl_eos <- df %>%
 df_2_eqtl_eos <- df_2_eqtl_eos[df_2_eqtl_eos$rank1 > quantile(df_2_eqtl_eos$rank1, 0.05, na.rm = TRUE) & df_2_eqtl_eos$rank1 < quantile(df_2_eqtl_eos$rank1, 0.95, na.rm = TRUE),]
 df_2_eqtl_eos <- df_2_eqtl_eos[df_2_eqtl_eos$rank2 > quantile(df_2_eqtl_eos$rank2, 0.05, na.rm = TRUE) & df_2_eqtl_eos$rank2 < quantile(df_2_eqtl_eos$rank2, 0.95, na.rm = TRUE),]
 
-plot_title_eos <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
+plot_title_eos <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL Effect Size" %>% glue::glue()
 
 pp1 <- ggplot(df_2_eqtl_eos, aes(rank1, rank2))
 pp1 <- pp1 + geom_point(alpha=.2, size=4)
 pp1 <- pp1 + theme_bw(base_size=20)
 pp1 <- pp1 + geom_abline(slope=1,intercept=0)
 pp1 <- pp1 + stat_density2d(color = alpha(colour="red",alpha=0.6), contour = TRUE)
-pp1 <- pp1 + ggtitle(plot_title_eos)
+pp1 <- pp1 + ggtitle(plot_title_eos) + theme(plot.title = element_text(size = 10))
 pp1 <- pp1 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp1 <- pp1 + coord_cartesian(xlim=c(-2,2), ylim=c(-2,2))
+pp1 <- pp1 + coord_cartesian(xlim=c(-5,5), ylim=c(-5,5))
 
 phenotype <- "UKB_20002_1094_self_reported_deep_venous_thrombosis_dvt"
 df <- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
@@ -124,16 +125,16 @@ df_2_eqtl_throm <- df %>%
 df_2_eqtl_throm <- df_2_eqtl_throm[df_2_eqtl_throm$rank1 > quantile(df_2_eqtl_throm$rank1, 0.05, na.rm = TRUE) & df_2_eqtl_throm$rank1 < quantile(df_2_eqtl_throm$rank1, 0.95, na.rm = TRUE),]
 df_2_eqtl_throm <- df_2_eqtl_throm[df_2_eqtl_throm$rank2 > quantile(df_2_eqtl_throm$rank2, 0.05, na.rm = TRUE) & df_2_eqtl_throm$rank2 < quantile(df_2_eqtl_throm$rank2, 0.95, na.rm = TRUE),]
 
-plot_title_throm <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL" %>% glue::glue()
+plot_title_throm <- "{gsub(pattern='_', replacement=' ', x=tissue)} - {gsub(pattern='_', replacement=' ', x=short_phenotype)}\nPrimary vs. secondary eQTL by Effect Size" %>% glue::glue()
 
 pp2 <- ggplot(df_2_eqtl_throm, aes(rank1, rank2))
 pp2 <- pp2 + geom_point(alpha=.2, size=4)
 pp2 <- pp2 + theme_bw(base_size=20)
 pp2 <- pp2 + geom_abline(slope=1,intercept=0)
 pp2 <- pp2 + stat_density2d(color = alpha(colour="red",alpha=0.6), contour = TRUE)
-pp2 <- pp2 + ggtitle(plot_title_throm)
+pp2 <- pp2 + ggtitle(plot_title_throm) + theme(plot.title = element_text(size = 10))
 pp2 <- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp2 <- pp2 + coord_cartesian(xlim=c(-2,2), ylim=c(-2,2))
+pp2 <- pp2 + coord_cartesian(xlim=c(-5,5), ylim=c(-5,5))
 
 grid.arrange(pp1,pp2,nrow=1)
 ```
@@ -143,8 +144,8 @@ Click on this [link](all_pvs_figures.html) to see a similar plot for every pheno
 An interesting observation is that the variance of $\beta_{sec}$ is higher than that of $\beta_{prim}$. This is obvious if you zoom out of both of the above graphs:
 
 ```{r,warning=FALSE,message=FALSE}
-pp1 <- pp1 + coord_cartesian(xlim=c(-4,4), ylim=c(-4,4))
-pp2 <- pp2 + coord_cartesian(xlim=c(-4,4), ylim=c(-4,4))
+pp1 <- pp1 + coord_cartesian(xlim=c(-5,5), ylim=c(-5,5))
+pp2 <- pp2 + coord_cartesian(xlim=c(-5,5), ylim=c(-5,5))
 grid.arrange(pp1,pp2,nrow=1)
 ```
 
@@ -162,23 +163,199 @@ Click on this [link](all_qqplots.html) for a q-q plot for every phenotype.
 Filtering the plots for genes for colocalized variants (using enloc) and combining every phenotype and tissue yields:
 
 ```{r,warning=FALSE,message=FALSE}
-df_master <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_joined.txt")
-tissue <- "Whole_Blood"
-plot_title <- "All Tissue - All Phenotypes - Enloc\nPrimary vs. secondary eQTL" %>% glue::glue()
+df_master <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_tissue_specificity.txt")
+plot_title <- "All Tissue - All Phenotypes - Enloc\nPrimary vs. secondary eQTL by Effect Size" %>% glue::glue()
 
-pp <- ggplot(df_master, aes(rank1, rank2))
+pp <- ggplot(df_master, aes(effect_size_rank1_beta, effect_size_rank2_beta))
 pp <- pp + geom_point(alpha=.2, size=4)
 pp <- pp + theme_bw(base_size=20)
 pp <- pp + geom_abline(slope=1,intercept=0)
 pp <- pp + stat_density2d(color = alpha(colour="red",alpha=0.6), contour = TRUE)
 pp <- pp + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
 pp <- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp <- pp + coord_fixed(ratio=1, xlim=c(-3,3), ylim=c(-3,3))
+pp <- pp + coord_fixed(ratio=1, xlim=c(-5,5), ylim=c(-5,5))
 
-print(pp)
+pp
 ```
+
+Here is the plot for Whole Blood and colocalized variants only:
 
 Click on this [link](all_enloc_tissue.html) for a prim vs sec plot for every tissue, enloc genes only.
 
 Click on this [link](all_enloc_phenotype.html) for a prim vs sec plot for every phenotype, enloc genes only.
+
+Problem: 
+So far the $\beta$'s are determined by ranking absolute value of eQTL effect sizes, which leads to the observed bias of larger variance in the $\beta_{sec}$.
+
+One way of getting rid of this bias can be ranking the pairs based on eQTL effect sizes from another dataset. The data got reranked based on the eQTL effect sizes from eQTLGen data. Note: effect size was estimated from z-score since it was provided. Also, eQTLGen only has Whole Blood data.
+
+```{r,warning=FALSE,message=FALSE}
+df_eqtlgen <- read_tsv("/Volumes/im-lab/nas40t2/josh/eQTLGen-analysis/wb_eqtlgen_ranked.txt")
+df_eqtlgen <- merge(x=df_eqtlgen,y=df_master,by.x=c("phenotype","Gene"),by.y=c("phenotype","gene_id"))
+
+df <- df_eqtlgen
+  
+df <- df[df$eQTLGenRank1 > quantile(df$eQTLGenRank1, 0.05, na.rm = TRUE) & df$eQTLGenRank1 < quantile(df$eQTLGenRank1, 0.95, na.rm = TRUE),]
+df <- df[df$eQTLGenRank2 > quantile(df$eQTLGenRank2, 0.05, na.rm = TRUE) & df$eQTLGenRank2 < quantile(df$eQTLGenRank2, 0.95, na.rm = TRUE),]
+  
+plot_title <- "Whole Blood - All Phenotypes - EQTLGen - Enloc\nPrimary vs. secondary eQTL" %>% glue::glue()
+  
+pp <- ggplot(df, aes(eQTLGenRank1, eQTLGenRank2))
+pp <- pp + geom_point(alpha=.2, size=4)
+pp <- pp + theme_bw(base_size=20)
+pp <- pp + geom_abline(slope=1,intercept=0)
+pp <- pp + stat_density2d(color = alpha(colour="red",alpha=0.6), contour = TRUE)
+pp <- pp + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
+pp <- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp <- pp + coord_fixed(ratio=1, xlim=c(-5,5), ylim=c(-5,5))
+
+pp
+```
+
+Lets compare this with the Whole Blood - all phenotypes plot when it was ranked by our effect sizes.
+
+```{r,warning=FALSE,message=FALSE}
+df_master <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_tissue_specificity.txt")
+df_master <- df_master[df_master$tissue=="Whole_Blood",]
+plot_title <- "Whole Blood - All Phenotypes - Enloc\nPrimary vs. secondary eQTL by Effect Size" %>% glue::glue()
+
+pp <- ggplot(df_master, aes(effect_size_rank1_beta, effect_size_rank2_beta))
+pp <- pp + geom_point(alpha=.2, size=4)
+pp <- pp + theme_bw(base_size=20)
+pp <- pp + geom_abline(slope=1,intercept=0)
+pp <- pp + stat_density2d(color = alpha(colour="red",alpha=0.6), contour = TRUE)
+pp <- pp + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
+pp <- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp <- pp + coord_fixed(ratio=1, xlim=c(-5,5), ylim=c(-5,5))
+
+pp
+```
+
+There does seem to be less of a bias towards larger $\beta_{sec}$. The variance of $\beta_{sec}$ for the eQTLGen plot is smaller, but perhaps we can do better.
+
+The following two plots compare z-score and effect size for the GTEx and eQTLGen data. 
+
+GTEx vs. eQTLGen - Z-scores:
+
+```{r,warning=FALSE,message=FALSE}
+wb_eqtl <- read_tsv(file="/Volumes/im-lab/nas40t2/josh/eQTLGen-analysis/wb_eqtl.txt")
+pp <- ggplot(wb_eqtl, aes(eqtlgen_zscore, gtex_eqtl_zscore))
+pp <- pp + geom_point(alpha=.2, size=4)
+pp <- pp + theme_bw(base_size=20)
+pp <- pp + ggtitle("GTEx vs. eQTLGen Z-scores")
+pp <- pp + xlab("eQTLGen Z-score") + ylab("GTEx Z-score")
+pp
+```
+
+GTEx vs. eQTLGen - Effect sizes:
+
+```{r,warning=FALSE,message=FALSE}
+pp <- ggplot(wb_eqtl, aes(eqtlgen_effect_size, gtex_eqtl_effect_size))
+pp <- pp + geom_point(alpha=.2, size=4)
+pp <- pp + theme_bw(base_size=20)
+pp <- pp + ggtitle("GTEx vs. eQTLGen Effect Sizes")
+pp <- pp + xlab("eQTLGen Effect Size") + ylab("GTEx Effect Size")
+pp
+```
+
+So far, primary and secondary are determined by the absolute value of $\beta$ where the larger $\beta$ is primary the other is secondary. A more convential way of determining primary and secondary is doing the same thing for eQTL z-score.
+
+```{r,warning=FALSE,message=FALSE}
+plot_title <- "Whole Blood - All Phenotypes - Enloc\nPrimary vs. secondary eQTL by Z-score" %>% glue::glue()
+df_master <- df_master[df_master$tissue=="Whole_Blood",]
+
+pp <- ggplot(df_master, aes(zscore_rank1_beta, zscore_rank2_beta))
+pp <- pp + geom_point(alpha=.2, size=4)
+pp <- pp + theme_bw(base_size=20)
+pp <- pp + geom_abline(slope=1,intercept=0)
+pp <- pp + stat_density2d(color = alpha(colour="red",alpha=0.6), contour = TRUE)
+pp <- pp + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
+pp <- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp <- pp + coord_fixed(ratio=1, xlim=c(-5,5), ylim=c(-5,5))
+
+pp
+```
+
+The resulting plot looks the more promising than reranking based on eQTLGen data! The variance of $\beta_{prim}$ and $\beta_{sec}$ now looks the same.
+
+Click on this [link](all_enloc_tissue_zscore.html) for a prim vs sec plot for every tissue, enloc genes only, ranked by z-score.
+
+Looking at the plot above, it seems like the points cluster together. For examples, there seems to be a cluster around (0,-2.5), (0,2.5), and (-2.4,-0.1). These clusters suggest there are a group of genes where the primary or secondary (depending on where it is on the plot) has an effect on the phenotype, which is interesting. Perhaps these genes are only active in certain tissues. K-means cluster analysis is performed to locate clusters in the plot and also the points are color coded for if they are tissue sharing or not.
+
+```{r,warning=FALSE,message=FALSE}
+enloc <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_ids.txt")
+enloc['index'] <- seq.int(nrow(enloc))
+tissue_sharing <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/tissue_sharing_dapg_eqtl_for_Josh/DAPG-tissue-sharing-eQTL.txt", col_names=FALSE)
+tissue_specific <- read_tsv("/Users/joshjiang/hakylab/gtex-gwas-analysis/data/tissue_sharing_dapg_eqtl_for_Josh/DAPG-tissue-specific-eQTL.txt", col_names=FALSE)
+d_ <- rbind(tissue_sharing,tissue_specific)
+d_ <- d_[!names(d_) %in% "X4"]
+d_ <- d_ %>% rename("variant_id"="X1","gene_id"="X2", "tissue_sharing"="X3")
+
+effect_size_rank1 <- enloc[names(enloc) %in% c("effect_size_rank1_variant_id","gene_id","index")]
+effect_size_rank2 <- enloc[names(enloc) %in% c("effect_size_rank2_variant_id","gene_id","index")]
+zscore_rank1 <- enloc[names(enloc) %in% c("zscore_rank1_variant_id","gene_id","index")]
+zscore_rank2 <- enloc[names(enloc) %in% c("zscore_rank2_variant_id","gene_id","index")]
+
+effect_size_rank1 <- merge(x=effect_size_rank1, y=d_, by.x=c("gene_id","effect_size_rank1_variant_id"), by.y=c("gene_id","variant_id"), all.x=TRUE)
+effect_size_rank2 <- merge(x=effect_size_rank2, y=d_, by.x=c("gene_id","effect_size_rank2_variant_id"), by.y=c("gene_id","variant_id"), all.x=TRUE)
+zscore_rank1 <- merge(x=zscore_rank1, y=d_, by.x=c("gene_id","zscore_rank1_variant_id"), by.y=c("gene_id","variant_id"), all.x=TRUE)
+zscore_rank2 <- merge(x=zscore_rank2, y=d_, by.x=c("gene_id","zscore_rank2_variant_id"), by.y=c("gene_id","variant_id"), all.x=TRUE)
+
+effect_size_rank1 <- effect_size_rank1[names(effect_size_rank1) %in% c("index", "tissue_sharing")] %>% rename("effect_size_rank1_tissue_sharing" = "tissue_sharing")
+effect_size_rank2 <- effect_size_rank2[names(effect_size_rank2) %in% c("index", "tissue_sharing")] %>% rename("effect_size_rank2_tissue_sharing" = "tissue_sharing")
+zscore_rank1 <- zscore_rank1[names(zscore_rank1) %in% c("index", "tissue_sharing")] %>% rename("zscore_rank1_tissue_sharing" = "tissue_sharing")
+zscore_rank2 <- zscore_rank2[names(zscore_rank2) %in% c("index", "tissue_sharing")] %>% rename("zscore_rank2_tissue_sharing" = "tissue_sharing")
+
+enloc <- merge(x=enloc, y=effect_size_rank1, by="index")
+enloc <- merge(x=enloc, y=effect_size_rank2, by="index")
+enloc <- merge(x=enloc, y=zscore_rank1, by="index")
+enloc <- merge(x=enloc, y=zscore_rank2, by="index")
+  
+enloc <- enloc[!names(enloc) %in% c("index","PP_H4_abf","rcp","nindep")]
+enloc['effect_size_share_group'] <- ifelse(enloc$effect_size_rank1_tissue_sharing==TRUE & enloc$effect_size_rank2_tissue_sharing==TRUE, "Both",
+                                    ifelse(enloc$effect_size_rank1_tissue_sharing==TRUE & enloc$effect_size_rank2_tissue_sharing==FALSE, "Prim only",
+                                    ifelse(enloc$effect_size_rank1_tissue_sharing==FALSE & enloc$effect_size_rank2_tissue_sharing==TRUE, "Sec only",
+                                    ifelse(enloc$effect_size_rank1_tissue_sharing==FALSE & enloc$effect_size_rank2_tissue_sharing==FALSE, "Neither",
+                                    NA))))
+enloc['zscore_share_group'] <- ifelse(enloc$zscore_rank1_tissue_sharing==TRUE & enloc$zscore_rank2_tissue_sharing==TRUE, "Both",
+                               ifelse(enloc$zscore_rank1_tissue_sharing==TRUE & enloc$zscore_rank2_tissue_sharing==FALSE, "Prim only",
+                               ifelse(enloc$zscore_rank1_tissue_sharing==FALSE & enloc$zscore_rank2_tissue_sharing==TRUE, "Sec only",
+                               ifelse(enloc$zscore_rank1_tissue_sharing==FALSE & enloc$zscore_rank2_tissue_sharing==FALSE, "Neither",
+                               NA))))
+
+df <- enloc[enloc$tissue=="Whole_Blood",]
+tmp <- df[names(df) %in% c("zscore_rank1_beta","zscore_rank2_beta")]
+k2 <- kmeans(tmp, centers = 6, nstart = 25)
+df['cluster'] = k2$cluster
+  
+plot_title <- "Whole Blood - All Phenotypes - Enloc\nPrimary vs. secondary eQTL by Z-score" %>% glue::glue()
+  
+pp <- ggplot(df, aes(x=zscore_rank1_beta, y=zscore_rank2_beta, color=zscore_share_group)) #color parameter to show genes that are tissue sharing/specific
+pp <- pp + geom_point(alpha=.6, size=4) + geom_encircle(aes(group=cluster), s_shape = 1, expand = 0, color = "black", show.legend = FALSE)
+pp <- pp + theme_bw() + theme(axis.text=element_text(size=20), axis.title.x=element_text(size=30), axis.title.y=element_text(size=30), plot.title=element_text(size=30))
+pp <- pp + geom_abline(slope=1,intercept=0)
+pp <- pp + ggtitle(plot_title)
+pp <- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec])) + labs(color="Tissue Sharing")
+pp <- pp + coord_fixed(ratio=1, xlim=c(-5,5), ylim=c(-5,5))
+
+pp
+
+```
+
+Click on this [link](all_enloc_tissue_sharing.html) for a prim vs sec plot for every tissue, enloc genes only, ranked by z-score, color coded for tissue sharing, and clustered.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
