@@ -406,7 +406,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-08-13
+<strong>Last updated:</strong> 2019-09-05
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -542,10 +542,10 @@ environment
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistreedba38c7b1f4addce519e96da0b3e4ead9708307dtargetblankdba38c7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/tree/dba38c7b1f4addce519e96da0b3e4ead9708307d" target="_blank">dba38c7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree0a9319ebab85c1f61b1cecf0af861a901f301703targetblank0a9319ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/tree/0a9319ebab85c1f61b1cecf0af861a901f301703" target="_blank">0a9319e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistreedba38c7b1f4addce519e96da0b3e4ead9708307dtargetblankdba38c7a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzjiang2betaprimvssecanalysistree0a9319ebab85c1f61b1cecf0af861a901f301703targetblank0a9319ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -598,6 +598,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zjiang2/beta_prim_vs_sec_analysis/d1479efa7f5ccb1e92a82affd8404ab5dc40ca90/docs/pvs_analysis.html" target="_blank">d1479ef</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-13
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1137,14 +1154,14 @@ df_2_eqtl &lt;- df %&gt;%
 df_2_eqtl &lt;- df_2_eqtl[df_2_eqtl$rank1 &gt; quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) &amp; df_2_eqtl$rank1 &lt; quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
 df_2_eqtl &lt;- df_2_eqtl[df_2_eqtl$rank2 &gt; quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) &amp; df_2_eqtl$rank2 &lt; quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
 
-plot_title &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - {gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=short_phenotype)}\nPrimary vs. secondary eQTL&quot; %&gt;% glue::glue()
+plot_title &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - {gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=short_phenotype)}\nPrimary vs. secondary eQTL Effect Size&quot; %&gt;% glue::glue()
 
 pp1 &lt;- ggplot(df_2_eqtl, aes(rank1, rank2))
 pp1 &lt;- pp1 + geom_point(alpha=.2, size=4)
 pp1 &lt;- pp1 + theme_bw(base_size=20)
 pp1 &lt;- pp1 + geom_abline(slope=1,intercept=0)
 pp1 &lt;- pp1 + stat_density2d(color = alpha(colour=&quot;red&quot;,alpha=0.6), contour = TRUE)
-pp1 &lt;- pp1 + ggtitle(plot_title)
+pp1 &lt;- pp1 + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
 pp1 &lt;- pp1 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
 pp1 &lt;- pp1 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06))
 
@@ -1162,14 +1179,14 @@ df_2_eqtl &lt;- df %&gt;%
 df_2_eqtl &lt;- df_2_eqtl[df_2_eqtl$rank1 &gt; quantile(df_2_eqtl$rank1, 0.05, na.rm = TRUE) &amp; df_2_eqtl$rank1 &lt; quantile(df_2_eqtl$rank1, 0.95, na.rm = TRUE),]
 df_2_eqtl &lt;- df_2_eqtl[df_2_eqtl$rank2 &gt; quantile(df_2_eqtl$rank2, 0.05, na.rm = TRUE) &amp; df_2_eqtl$rank2 &lt; quantile(df_2_eqtl$rank2, 0.95, na.rm = TRUE),]
 
-plot_title &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - {gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=short_phenotype)}\nPrimary vs. secondary eQTL&quot; %&gt;% glue::glue()
+plot_title &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - {gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=short_phenotype)}\nPrimary vs. secondary eQTL Effect Size&quot; %&gt;% glue::glue()
 
 pp2 &lt;- ggplot(df_2_eqtl, aes(rank1, rank2))
 pp2 &lt;- pp2 + geom_point(alpha=.2, size=4)
 pp2 &lt;- pp2 + theme_bw(base_size=20)
 pp2 &lt;- pp2 + geom_abline(slope=1,intercept=0)
 pp2 &lt;- pp2 + stat_density2d(color = alpha(colour=&quot;red&quot;,alpha=0.6), contour = TRUE)
-pp2 &lt;- pp2 + ggtitle(plot_title)
+pp2 &lt;- pp2 + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
 pp2 &lt;- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
 pp2 &lt;- pp2 + coord_cartesian(xlim=c(-0.06,0.06), ylim=c(-0.06,0.06), clip=&quot;off&quot;)
 
@@ -1273,16 +1290,16 @@ df_2_eqtl_eos &lt;- df %&gt;%
 df_2_eqtl_eos &lt;- df_2_eqtl_eos[df_2_eqtl_eos$rank1 &gt; quantile(df_2_eqtl_eos$rank1, 0.05, na.rm = TRUE) &amp; df_2_eqtl_eos$rank1 &lt; quantile(df_2_eqtl_eos$rank1, 0.95, na.rm = TRUE),]
 df_2_eqtl_eos &lt;- df_2_eqtl_eos[df_2_eqtl_eos$rank2 &gt; quantile(df_2_eqtl_eos$rank2, 0.05, na.rm = TRUE) &amp; df_2_eqtl_eos$rank2 &lt; quantile(df_2_eqtl_eos$rank2, 0.95, na.rm = TRUE),]
 
-plot_title_eos &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - {gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=short_phenotype)}\nPrimary vs. secondary eQTL&quot; %&gt;% glue::glue()
+plot_title_eos &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - {gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=short_phenotype)}\nPrimary vs. secondary eQTL Effect Size&quot; %&gt;% glue::glue()
 
 pp1 &lt;- ggplot(df_2_eqtl_eos, aes(rank1, rank2))
 pp1 &lt;- pp1 + geom_point(alpha=.2, size=4)
 pp1 &lt;- pp1 + theme_bw(base_size=20)
 pp1 &lt;- pp1 + geom_abline(slope=1,intercept=0)
 pp1 &lt;- pp1 + stat_density2d(color = alpha(colour=&quot;red&quot;,alpha=0.6), contour = TRUE)
-pp1 &lt;- pp1 + ggtitle(plot_title_eos)
+pp1 &lt;- pp1 + ggtitle(plot_title_eos) + theme(plot.title = element_text(size = 10))
 pp1 &lt;- pp1 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp1 &lt;- pp1 + coord_cartesian(xlim=c(-2,2), ylim=c(-2,2))
+pp1 &lt;- pp1 + coord_cartesian(xlim=c(-5,5), ylim=c(-5,5))
 
 phenotype &lt;- &quot;UKB_20002_1094_self_reported_deep_venous_thrombosis_dvt&quot;
 df &lt;- readRDS(glue::glue(dapg_file_pattern))[[phenotype]]
@@ -1300,16 +1317,16 @@ df_2_eqtl_throm &lt;- df %&gt;%
 df_2_eqtl_throm &lt;- df_2_eqtl_throm[df_2_eqtl_throm$rank1 &gt; quantile(df_2_eqtl_throm$rank1, 0.05, na.rm = TRUE) &amp; df_2_eqtl_throm$rank1 &lt; quantile(df_2_eqtl_throm$rank1, 0.95, na.rm = TRUE),]
 df_2_eqtl_throm &lt;- df_2_eqtl_throm[df_2_eqtl_throm$rank2 &gt; quantile(df_2_eqtl_throm$rank2, 0.05, na.rm = TRUE) &amp; df_2_eqtl_throm$rank2 &lt; quantile(df_2_eqtl_throm$rank2, 0.95, na.rm = TRUE),]
 
-plot_title_throm &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - {gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=short_phenotype)}\nPrimary vs. secondary eQTL&quot; %&gt;% glue::glue()
+plot_title_throm &lt;- &quot;{gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=tissue)} - {gsub(pattern=&#39;_&#39;, replacement=&#39; &#39;, x=short_phenotype)}\nPrimary vs. secondary eQTL by Effect Size&quot; %&gt;% glue::glue()
 
 pp2 &lt;- ggplot(df_2_eqtl_throm, aes(rank1, rank2))
 pp2 &lt;- pp2 + geom_point(alpha=.2, size=4)
 pp2 &lt;- pp2 + theme_bw(base_size=20)
 pp2 &lt;- pp2 + geom_abline(slope=1,intercept=0)
 pp2 &lt;- pp2 + stat_density2d(color = alpha(colour=&quot;red&quot;,alpha=0.6), contour = TRUE)
-pp2 &lt;- pp2 + ggtitle(plot_title_throm)
+pp2 &lt;- pp2 + ggtitle(plot_title_throm) + theme(plot.title = element_text(size = 10))
 pp2 &lt;- pp2 + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp2 &lt;- pp2 + coord_cartesian(xlim=c(-2,2), ylim=c(-2,2))
+pp2 &lt;- pp2 + coord_cartesian(xlim=c(-5,5), ylim=c(-5,5))
 
 grid.arrange(pp1,pp2,nrow=1)</code></pre>
 <p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1407,8 +1424,8 @@ zjiang2
 </div>
 <p>Click on this <a href="all_pvs_figures.html">link</a> to see a similar plot for every phenotype.</p>
 <p>An interesting observation is that the variance of <span class="math inline">\(\beta_{sec}\)</span> is higher than that of <span class="math inline">\(\beta_{prim}\)</span>. This is obvious if you zoom out of both of the above graphs:</p>
-<pre class="r"><code>pp1 &lt;- pp1 + coord_cartesian(xlim=c(-4,4), ylim=c(-4,4))
-pp2 &lt;- pp2 + coord_cartesian(xlim=c(-4,4), ylim=c(-4,4))
+<pre class="r"><code>pp1 &lt;- pp1 + coord_cartesian(xlim=c(-5,5), ylim=c(-5,5))
+pp2 &lt;- pp2 + coord_cartesian(xlim=c(-5,5), ylim=c(-5,5))
 grid.arrange(pp1,pp2,nrow=1)</code></pre>
 <p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1591,20 +1608,19 @@ zjiang2
 </div>
 <p>Click on this <a href="all_qqplots.html">link</a> for a q-q plot for every phenotype.</p>
 <p>Filtering the plots for genes for colocalized variants (using enloc) and combining every phenotype and tissue yields:</p>
-<pre class="r"><code>df_master &lt;- read_tsv(&quot;/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_joined.txt&quot;)
-tissue &lt;- &quot;Whole_Blood&quot;
-plot_title &lt;- &quot;All Tissue - All Phenotypes - Enloc\nPrimary vs. secondary eQTL&quot; %&gt;% glue::glue()
+<pre class="r"><code>df_master &lt;- read_tsv(&quot;/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_tissue_specificity.txt&quot;)
+plot_title &lt;- &quot;All Tissue - All Phenotypes - Enloc\nPrimary vs. secondary eQTL by Effect Size&quot; %&gt;% glue::glue()
 
-pp &lt;- ggplot(df_master, aes(rank1, rank2))
+pp &lt;- ggplot(df_master, aes(effect_size_rank1_beta, effect_size_rank2_beta))
 pp &lt;- pp + geom_point(alpha=.2, size=4)
 pp &lt;- pp + theme_bw(base_size=20)
 pp &lt;- pp + geom_abline(slope=1,intercept=0)
 pp &lt;- pp + stat_density2d(color = alpha(colour=&quot;red&quot;,alpha=0.6), contour = TRUE)
 pp &lt;- pp + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
 pp &lt;- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
-pp &lt;- pp + coord_fixed(ratio=1, xlim=c(-3,3), ylim=c(-3,3))
+pp &lt;- pp + coord_fixed(ratio=1, xlim=c(-5,5), ylim=c(-5,5))
 
-print(pp)</code></pre>
+pp</code></pre>
 <p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -1628,6 +1644,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/d1479efa7f5ccb1e92a82affd8404ab5dc40ca90/docs/figure/pvs_analysis.Rmd/unnamed-chunk-5-1.png" target="_blank">d1479ef</a>
+</td>
+<td>
+zjiang2
+</td>
+<td>
+2019-08-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/zjiang2/beta_prim_vs_sec_analysis/blob/99098706a842bd472e45c5be1aeac954220b6db6/docs/figure/pvs_analysis.Rmd/unnamed-chunk-5-1.png" target="_blank">9909870</a>
@@ -1654,8 +1681,143 @@ zjiang2
 </table>
 </div>
 </div>
+<p>Here is the plot for Whole Blood and colocalized variants only:</p>
 <p>Click on this <a href="all_enloc_tissue.html">link</a> for a prim vs sec plot for every tissue, enloc genes only.</p>
 <p>Click on this <a href="all_enloc_phenotype.html">link</a> for a prim vs sec plot for every phenotype, enloc genes only.</p>
+<p>Problem: So far the <span class="math inline">\(\beta\)</span>’s are determined by ranking absolute value of eQTL effect sizes, which leads to the observed bias of larger variance in the <span class="math inline">\(\beta_{sec}\)</span>.</p>
+<p>One way of getting rid of this bias can be ranking the pairs based on eQTL effect sizes from another dataset. The data got reranked based on the eQTL effect sizes from eQTLGen data. Note: effect size was estimated from z-score since it was provided. Also, eQTLGen only has Whole Blood data.</p>
+<pre class="r"><code>df_eqtlgen &lt;- read_tsv(&quot;/Volumes/im-lab/nas40t2/josh/eQTLGen-analysis/wb_eqtlgen_ranked.txt&quot;)
+df_eqtlgen &lt;- merge(x=df_eqtlgen,y=df_master,by.x=c(&quot;phenotype&quot;,&quot;Gene&quot;),by.y=c(&quot;phenotype&quot;,&quot;gene_id&quot;))
+
+df &lt;- df_eqtlgen
+  
+df &lt;- df[df$eQTLGenRank1 &gt; quantile(df$eQTLGenRank1, 0.05, na.rm = TRUE) &amp; df$eQTLGenRank1 &lt; quantile(df$eQTLGenRank1, 0.95, na.rm = TRUE),]
+df &lt;- df[df$eQTLGenRank2 &gt; quantile(df$eQTLGenRank2, 0.05, na.rm = TRUE) &amp; df$eQTLGenRank2 &lt; quantile(df$eQTLGenRank2, 0.95, na.rm = TRUE),]
+  
+plot_title &lt;- &quot;Whole Blood - All Phenotypes - EQTLGen - Enloc\nPrimary vs. secondary eQTL&quot; %&gt;% glue::glue()
+  
+pp &lt;- ggplot(df, aes(eQTLGenRank1, eQTLGenRank2))
+pp &lt;- pp + geom_point(alpha=.2, size=4)
+pp &lt;- pp + theme_bw(base_size=20)
+pp &lt;- pp + geom_abline(slope=1,intercept=0)
+pp &lt;- pp + stat_density2d(color = alpha(colour=&quot;red&quot;,alpha=0.6), contour = TRUE)
+pp &lt;- pp + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
+pp &lt;- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp &lt;- pp + coord_fixed(ratio=1, xlim=c(-5,5), ylim=c(-5,5))
+
+pp</code></pre>
+<p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Lets compare this with the Whole Blood - all phenotypes plot when it was ranked by our effect sizes.</p>
+<pre class="r"><code>df_master &lt;- read_tsv(&quot;/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_tissue_specificity.txt&quot;)
+df_master &lt;- df_master[df_master$tissue==&quot;Whole_Blood&quot;,]
+plot_title &lt;- &quot;Whole Blood - All Phenotypes - Enloc\nPrimary vs. secondary eQTL by Effect Size&quot; %&gt;% glue::glue()
+
+pp &lt;- ggplot(df_master, aes(effect_size_rank1_beta, effect_size_rank2_beta))
+pp &lt;- pp + geom_point(alpha=.2, size=4)
+pp &lt;- pp + theme_bw(base_size=20)
+pp &lt;- pp + geom_abline(slope=1,intercept=0)
+pp &lt;- pp + stat_density2d(color = alpha(colour=&quot;red&quot;,alpha=0.6), contour = TRUE)
+pp &lt;- pp + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
+pp &lt;- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp &lt;- pp + coord_fixed(ratio=1, xlim=c(-5,5), ylim=c(-5,5))
+
+pp</code></pre>
+<p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>There does seem to be less of a bias towards larger <span class="math inline">\(\beta_{sec}\)</span>. The variance of <span class="math inline">\(\beta_{sec}\)</span> for the eQTLGen plot is smaller, but perhaps we can do better.</p>
+<p>The following two plots compare z-score and effect size for the GTEx and eQTLGen data.</p>
+<p>GTEx vs. eQTLGen - Z-scores:</p>
+<pre class="r"><code>wb_eqtl &lt;- read_tsv(file=&quot;/Volumes/im-lab/nas40t2/josh/eQTLGen-analysis/wb_eqtl.txt&quot;)
+pp &lt;- ggplot(wb_eqtl, aes(eqtlgen_zscore, gtex_eqtl_zscore))
+pp &lt;- pp + geom_point(alpha=.2, size=4)
+pp &lt;- pp + theme_bw(base_size=20)
+pp &lt;- pp + ggtitle(&quot;GTEx vs. eQTLGen Z-scores&quot;)
+pp &lt;- pp + xlab(&quot;eQTLGen Z-score&quot;) + ylab(&quot;GTEx Z-score&quot;)
+pp</code></pre>
+<p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>GTEx vs. eQTLGen - Effect sizes:</p>
+<pre class="r"><code>pp &lt;- ggplot(wb_eqtl, aes(eqtlgen_effect_size, gtex_eqtl_effect_size))
+pp &lt;- pp + geom_point(alpha=.2, size=4)
+pp &lt;- pp + theme_bw(base_size=20)
+pp &lt;- pp + ggtitle(&quot;GTEx vs. eQTLGen Effect Sizes&quot;)
+pp &lt;- pp + xlab(&quot;eQTLGen Effect Size&quot;) + ylab(&quot;GTEx Effect Size&quot;)
+pp</code></pre>
+<p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>So far, primary and secondary are determined by the absolute value of <span class="math inline">\(\beta\)</span> where the larger <span class="math inline">\(\beta\)</span> is primary the other is secondary. A more convential way of determining primary and secondary is doing the same thing for eQTL z-score.</p>
+<pre class="r"><code>plot_title &lt;- &quot;Whole Blood - All Phenotypes - Enloc\nPrimary vs. secondary eQTL by Z-score&quot; %&gt;% glue::glue()
+df_master &lt;- df_master[df_master$tissue==&quot;Whole_Blood&quot;,]
+
+pp &lt;- ggplot(df_master, aes(zscore_rank1_beta, zscore_rank2_beta))
+pp &lt;- pp + geom_point(alpha=.2, size=4)
+pp &lt;- pp + theme_bw(base_size=20)
+pp &lt;- pp + geom_abline(slope=1,intercept=0)
+pp &lt;- pp + stat_density2d(color = alpha(colour=&quot;red&quot;,alpha=0.6), contour = TRUE)
+pp &lt;- pp + ggtitle(plot_title) + theme(plot.title = element_text(size = 10))
+pp &lt;- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec]))
+pp &lt;- pp + coord_fixed(ratio=1, xlim=c(-5,5), ylim=c(-5,5))
+
+pp</code></pre>
+<p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The resulting plot looks the more promising than reranking based on eQTLGen data! The variance of <span class="math inline">\(\beta_{prim}\)</span> and <span class="math inline">\(\beta_{sec}\)</span> now looks the same.</p>
+<p>Click on this <a href="all_enloc_tissue_zscore.html">link</a> for a prim vs sec plot for every tissue, enloc genes only, ranked by z-score.</p>
+<p>Looking at the plot above, it seems like the points cluster together. For examples, there seems to be a cluster around (0,-2.5), (0,2.5), and (-2.4,-0.1). These clusters suggest there are a group of genes where the primary or secondary (depending on where it is on the plot) has an effect on the phenotype, which is interesting. Perhaps these genes are only active in certain tissues. K-means cluster analysis is performed to locate clusters in the plot and also the points are color coded for if they are tissue sharing or not.</p>
+<pre class="r"><code>enloc &lt;- read_tsv(&quot;/Users/joshjiang/hakylab/gtex-gwas-analysis/data/coloc_enloc_gene_ids.txt&quot;)
+enloc[&#39;index&#39;] &lt;- seq.int(nrow(enloc))
+tissue_sharing &lt;- read_tsv(&quot;/Users/joshjiang/hakylab/gtex-gwas-analysis/data/tissue_sharing_dapg_eqtl_for_Josh/DAPG-tissue-sharing-eQTL.txt&quot;, col_names=FALSE)
+tissue_specific &lt;- read_tsv(&quot;/Users/joshjiang/hakylab/gtex-gwas-analysis/data/tissue_sharing_dapg_eqtl_for_Josh/DAPG-tissue-specific-eQTL.txt&quot;, col_names=FALSE)
+d_ &lt;- rbind(tissue_sharing,tissue_specific)
+d_ &lt;- d_[!names(d_) %in% &quot;X4&quot;]
+d_ &lt;- d_ %&gt;% rename(&quot;variant_id&quot;=&quot;X1&quot;,&quot;gene_id&quot;=&quot;X2&quot;, &quot;tissue_sharing&quot;=&quot;X3&quot;)
+
+effect_size_rank1 &lt;- enloc[names(enloc) %in% c(&quot;effect_size_rank1_variant_id&quot;,&quot;gene_id&quot;,&quot;index&quot;)]
+effect_size_rank2 &lt;- enloc[names(enloc) %in% c(&quot;effect_size_rank2_variant_id&quot;,&quot;gene_id&quot;,&quot;index&quot;)]
+zscore_rank1 &lt;- enloc[names(enloc) %in% c(&quot;zscore_rank1_variant_id&quot;,&quot;gene_id&quot;,&quot;index&quot;)]
+zscore_rank2 &lt;- enloc[names(enloc) %in% c(&quot;zscore_rank2_variant_id&quot;,&quot;gene_id&quot;,&quot;index&quot;)]
+
+effect_size_rank1 &lt;- merge(x=effect_size_rank1, y=d_, by.x=c(&quot;gene_id&quot;,&quot;effect_size_rank1_variant_id&quot;), by.y=c(&quot;gene_id&quot;,&quot;variant_id&quot;), all.x=TRUE)
+effect_size_rank2 &lt;- merge(x=effect_size_rank2, y=d_, by.x=c(&quot;gene_id&quot;,&quot;effect_size_rank2_variant_id&quot;), by.y=c(&quot;gene_id&quot;,&quot;variant_id&quot;), all.x=TRUE)
+zscore_rank1 &lt;- merge(x=zscore_rank1, y=d_, by.x=c(&quot;gene_id&quot;,&quot;zscore_rank1_variant_id&quot;), by.y=c(&quot;gene_id&quot;,&quot;variant_id&quot;), all.x=TRUE)
+zscore_rank2 &lt;- merge(x=zscore_rank2, y=d_, by.x=c(&quot;gene_id&quot;,&quot;zscore_rank2_variant_id&quot;), by.y=c(&quot;gene_id&quot;,&quot;variant_id&quot;), all.x=TRUE)
+
+effect_size_rank1 &lt;- effect_size_rank1[names(effect_size_rank1) %in% c(&quot;index&quot;, &quot;tissue_sharing&quot;)] %&gt;% rename(&quot;effect_size_rank1_tissue_sharing&quot; = &quot;tissue_sharing&quot;)
+effect_size_rank2 &lt;- effect_size_rank2[names(effect_size_rank2) %in% c(&quot;index&quot;, &quot;tissue_sharing&quot;)] %&gt;% rename(&quot;effect_size_rank2_tissue_sharing&quot; = &quot;tissue_sharing&quot;)
+zscore_rank1 &lt;- zscore_rank1[names(zscore_rank1) %in% c(&quot;index&quot;, &quot;tissue_sharing&quot;)] %&gt;% rename(&quot;zscore_rank1_tissue_sharing&quot; = &quot;tissue_sharing&quot;)
+zscore_rank2 &lt;- zscore_rank2[names(zscore_rank2) %in% c(&quot;index&quot;, &quot;tissue_sharing&quot;)] %&gt;% rename(&quot;zscore_rank2_tissue_sharing&quot; = &quot;tissue_sharing&quot;)
+
+enloc &lt;- merge(x=enloc, y=effect_size_rank1, by=&quot;index&quot;)
+enloc &lt;- merge(x=enloc, y=effect_size_rank2, by=&quot;index&quot;)
+enloc &lt;- merge(x=enloc, y=zscore_rank1, by=&quot;index&quot;)
+enloc &lt;- merge(x=enloc, y=zscore_rank2, by=&quot;index&quot;)
+  
+enloc &lt;- enloc[!names(enloc) %in% c(&quot;index&quot;,&quot;PP_H4_abf&quot;,&quot;rcp&quot;,&quot;nindep&quot;)]
+enloc[&#39;effect_size_share_group&#39;] &lt;- ifelse(enloc$effect_size_rank1_tissue_sharing==TRUE &amp; enloc$effect_size_rank2_tissue_sharing==TRUE, &quot;Both&quot;,
+                                    ifelse(enloc$effect_size_rank1_tissue_sharing==TRUE &amp; enloc$effect_size_rank2_tissue_sharing==FALSE, &quot;Prim only&quot;,
+                                    ifelse(enloc$effect_size_rank1_tissue_sharing==FALSE &amp; enloc$effect_size_rank2_tissue_sharing==TRUE, &quot;Sec only&quot;,
+                                    ifelse(enloc$effect_size_rank1_tissue_sharing==FALSE &amp; enloc$effect_size_rank2_tissue_sharing==FALSE, &quot;Neither&quot;,
+                                    NA))))
+enloc[&#39;zscore_share_group&#39;] &lt;- ifelse(enloc$zscore_rank1_tissue_sharing==TRUE &amp; enloc$zscore_rank2_tissue_sharing==TRUE, &quot;Both&quot;,
+                               ifelse(enloc$zscore_rank1_tissue_sharing==TRUE &amp; enloc$zscore_rank2_tissue_sharing==FALSE, &quot;Prim only&quot;,
+                               ifelse(enloc$zscore_rank1_tissue_sharing==FALSE &amp; enloc$zscore_rank2_tissue_sharing==TRUE, &quot;Sec only&quot;,
+                               ifelse(enloc$zscore_rank1_tissue_sharing==FALSE &amp; enloc$zscore_rank2_tissue_sharing==FALSE, &quot;Neither&quot;,
+                               NA))))
+
+df &lt;- enloc[enloc$tissue==&quot;Whole_Blood&quot;,]
+tmp &lt;- df[names(df) %in% c(&quot;zscore_rank1_beta&quot;,&quot;zscore_rank2_beta&quot;)]
+k2 &lt;- kmeans(tmp, centers = 6, nstart = 25)
+df[&#39;cluster&#39;] = k2$cluster
+  
+plot_title &lt;- &quot;Whole Blood - All Phenotypes - Enloc\nPrimary vs. secondary eQTL by Z-score&quot; %&gt;% glue::glue()
+  
+pp &lt;- ggplot(df, aes(x=zscore_rank1_beta, y=zscore_rank2_beta, color=zscore_share_group)) #color parameter to show genes that are tissue sharing/specific
+pp &lt;- pp + geom_point(alpha=.6, size=4) + geom_encircle(aes(group=cluster), s_shape = 1, expand = 0, color = &quot;black&quot;, show.legend = FALSE)
+pp &lt;- pp + theme_bw() + theme(axis.text=element_text(size=20), axis.title.x=element_text(size=30), axis.title.y=element_text(size=30), plot.title=element_text(size=30))
+pp &lt;- pp + geom_abline(slope=1,intercept=0)
+pp &lt;- pp + ggtitle(plot_title)
+pp &lt;- pp + xlab(expression(beta[prim])) + ylab(expression(beta[sec])) + labs(color=&quot;Tissue Sharing&quot;)
+pp &lt;- pp + coord_fixed(ratio=1, xlim=c(-5,5), ylim=c(-5,5))
+
+pp</code></pre>
+<p><img src="figure/pvs_analysis.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Click on this <a href="all_enloc_tissue_sharing.html">link</a> for a prim vs sec plot for every tissue, enloc genes only, ranked by z-score, color coded for tissue sharing, and clustered.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1666,7 +1828,7 @@ zjiang2
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 3.6.1 (2019-07-05)
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
-Running under: macOS Mojave 10.14.5
+Running under: macOS Mojave 10.14.6
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
@@ -1679,25 +1841,32 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] gridExtra_2.3   forcats_0.4.0   stringr_1.4.0   dplyr_0.8.3    
- [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.3   
- [9] tidyverse_1.2.1 ggplot2_3.2.0  
+ [1] ggalt_0.4.0     gridExtra_2.3   forcats_0.4.0   stringr_1.4.0  
+ [5] dplyr_0.8.3     purrr_0.3.2     readr_1.3.1     tidyr_0.8.3    
+ [9] tibble_2.1.3    tidyverse_1.2.1 ggplot2_3.2.0  
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5 xfun_0.8         haven_2.1.1      lattice_0.20-38 
- [5] colorspace_1.4-1 generics_0.0.2   vctrs_0.2.0      htmltools_0.3.6 
- [9] yaml_2.2.0       rlang_0.4.0      pillar_1.4.2     glue_1.3.1      
-[13] withr_2.1.2      modelr_0.1.4     readxl_1.3.1     munsell_0.5.0   
-[17] gtable_0.3.0     workflowr_1.4.0  cellranger_1.1.0 rvest_0.3.4     
-[21] evaluate_0.14    labeling_0.3     knitr_1.23       highr_0.8       
-[25] broom_0.5.2      Rcpp_1.0.1       scales_1.0.0     backports_1.1.4 
-[29] jsonlite_1.6     fs_1.3.1         hms_0.5.0        digest_0.6.20   
-[33] stringi_1.4.3    grid_3.6.1       rprojroot_1.3-2  cli_1.1.0       
-[37] tools_3.6.1      magrittr_1.5     lazyeval_0.2.2   crayon_1.3.4    
-[41] whisker_0.3-2    pkgconfig_2.0.2  zeallot_0.1.0    MASS_7.3-51.4   
-[45] xml2_1.2.0       lubridate_1.7.4  assertthat_0.2.1 rmarkdown_1.14  
-[49] httr_1.4.0       rstudioapi_0.10  R6_2.4.0         nlme_3.1-140    
-[53] git2r_0.26.1     compiler_3.6.1  </code></pre>
+ [1] tidyselect_0.2.5   xfun_0.8           haven_2.1.1       
+ [4] lattice_0.20-38    colorspace_1.4-1   generics_0.0.2    
+ [7] vctrs_0.2.0        htmltools_0.3.6    yaml_2.2.0        
+[10] rlang_0.4.0        pillar_1.4.2       glue_1.3.1        
+[13] withr_2.1.2        RColorBrewer_1.1-2 modelr_0.1.4      
+[16] readxl_1.3.1       munsell_0.5.0      gtable_0.3.0      
+[19] workflowr_1.4.0    cellranger_1.1.0   rvest_0.3.4       
+[22] evaluate_0.14      labeling_0.3       knitr_1.23        
+[25] extrafont_0.17     Rttf2pt1_1.3.7     highr_0.8         
+[28] broom_0.5.2        Rcpp_1.0.1         KernSmooth_2.23-15
+[31] scales_1.0.0       backports_1.1.4    jsonlite_1.6      
+[34] fs_1.3.1           proj4_1.0-8        hms_0.5.0         
+[37] digest_0.6.20      stringi_1.4.3      ash_1.0-15        
+[40] grid_3.6.1         rprojroot_1.3-2    cli_1.1.0         
+[43] tools_3.6.1        maps_3.3.0         magrittr_1.5      
+[46] lazyeval_0.2.2     extrafontdb_1.0    crayon_1.3.4      
+[49] whisker_0.3-2      pkgconfig_2.0.2    zeallot_0.1.0     
+[52] MASS_7.3-51.4      xml2_1.2.0         lubridate_1.7.4   
+[55] assertthat_0.2.1   rmarkdown_1.14     httr_1.4.0        
+[58] rstudioapi_0.10    R6_2.4.0           nlme_3.1-140      
+[61] git2r_0.26.1       compiler_3.6.1    </code></pre>
 </div>
 
 
